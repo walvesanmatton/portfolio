@@ -6,169 +6,137 @@
 <title>Walison Alves — 2D Animator and Director</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Poppins:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=DM+Sans:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#ececec;--ink:#003459;--pill:#d3dae0;--pill-on:#b9c5cf;--input:#91a2af;--ph:#c3cdd6;--soft:#7fb0c5;--lilac:#b58fc4;--line:#9b6bb0;--card:#d9d9d9;--btn:#fff;
+:root{--bg:#f3eee4;--ink:#14151a;--navy:#003459;--red:#ff1a00;--dark:#191919;--card:#e2dccf;--hf:"Bricolage Grotesque",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151b;--ink:#dbe9f5;--pill:#1f2a35;--pill-on:#2f3e4c;--input:#2d3b48;--ph:#7d90a1;--soft:#7fb0c5;--lilac:#b58fc4;--line:#6f4a82;--card:#1c242c;--btn:#e8f0f6}}
-:root[data-theme="dark"]{--bg:#10151b;--ink:#dbe9f5;--pill:#1f2a35;--pill-on:#2f3e4c;--input:#2d3b48;--ph:#7d90a1;--soft:#7fb0c5;--lilac:#b58fc4;--line:#6f4a82;--card:#1c242c;--btn:#e8f0f6}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-snap-type:y proximity}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 clamp(16px,1.3vw,22px)/1.45 Jost,system-ui,sans-serif;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 clamp(16px,1.25vw,20px)/1.5 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
 [hidden]{display:none!important}
-.wrap{padding-inline:clamp(20px,9vw,164px);max-width:1822px;margin-inline:auto}
-header{display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,2.7vw,50px) 0;gap:16px;flex-wrap:wrap}
-.nav{display:flex;gap:clamp(18px,4.6vw,84px);font-size:clamp(17px,1.4vw,24px)}
-.nav a{position:relative;padding-bottom:10px}
-.nav a.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:2px;background:var(--ink)}
-.soc{display:flex;gap:clamp(18px,2.4vw,30px);align-items:center;font-weight:500;font-size:20px}
-.soc a,.soc span{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;font-weight:800;font-family:Poppins,sans-serif;font-size:17px}
-.soc svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
-.soc span{opacity:.55}
-h1,h2{font-family:Poppins,sans-serif;font-weight:900;text-transform:uppercase;margin:0;line-height:1}
-h1{font-size:clamp(52px,8vw,128px);letter-spacing:-.01em}
-.pill{display:inline-block;background:var(--pill);border-radius:99px;padding:8px clamp(20px,2vw,34px);font-size:clamp(16px,1.3vw,22px)}
-a.pill:hover,.pill.on{background:var(--pill-on)}
-.pill[aria-disabled]{opacity:.6;cursor:not-allowed}
-.intro{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-start;padding-top:clamp(24px,3vw,48px)}
-.intro p{max-width:30ch;margin:14px clamp(0px,9vw,170px) 0 0;font-size:clamp(18px,1.6vw,28px);font-weight:300;line-height:1.35}
-.filters{display:flex;gap:12px;flex-wrap:wrap;margin:clamp(24px,3vw,48px) 0}
-.car{overflow:hidden;margin-top:8px}
-.track{display:flex;gap:clamp(16px,2.9vw,52px);transition:transform .5s cubic-bezier(.3,.7,.2,1);will-change:transform}
-.slide{flex:0 0 82%;aspect-ratio:1494/428;min-height:200px;border-radius:clamp(16px,2vw,32px);transition:opacity .3s}
-.slide:not(.cur){opacity:.95;cursor:pointer}
-.slide.cur{cursor:zoom-in}
-.ctl{display:flex;justify-content:center;gap:12px;margin-top:20px}
-.ctl button{width:44px;height:44px;border-radius:50%;border:0;background:var(--pill);color:var(--ink);font-size:20px;cursor:pointer}
-.ctl button:hover{background:var(--pill-on)}
-.label{font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin:clamp(32px,4vw,64px) 0 14px;opacity:.85}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{aspect-ratio:485/362;border-radius:24px;background:var(--card);position:relative;overflow:hidden;display:block}
-a.card{transition:transform .25s}a.card:hover{transform:translateY(-4px)}
-.g2{grid-template-columns:repeat(2,1fr);gap:44px;margin:0 auto;max-width:1480px}.g2 .card{aspect-ratio:719/498}
-.big{display:grid;gap:78px;max-width:1280px;margin:0 auto}.big .card{aspect-ratio:16/9;border-radius:clamp(14px,1.6vw,26px)}.big .card.sq{aspect-ratio:1;max-width:720px;width:100%;margin-inline:auto}.slide,.art{position:relative;overflow:hidden}.card video,.card img,.slide video,.slide img,.art video,.art img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;display:block}
-.center{text-align:center;padding:clamp(28px,3vw,48px) 0 clamp(36px,4vw,60px)}
-.sc{display:flex;justify-content:center;padding:clamp(44px,6vw,90px) 0 clamp(28px,4vw,56px)}
-.c1{background:#fbf4be}.c2{background:linear-gradient(#4d0500,#ff1a00 55%,#ff9a45)}.c2::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:#1d1d1d;clip-path:polygon(0 60%,6% 60%,6% 25%,12% 25%,12% 50%,18% 50%,18% 10%,24% 10%,24% 55%,32% 55%,32% 30%,40% 30%,40% 62%,48% 62%,48% 20%,55% 20%,55% 45%,63% 45%,63% 5%,70% 5%,70% 55%,80% 55%,80% 25%,88% 25%,88% 50%,100% 50%,100% 100%,0 100%)}
-.c3{background:linear-gradient(#00061f,#0a1b5c)}.c3 i{position:absolute;left:23%;top:6%;bottom:-4%;width:2.2%;background:#c9d3e0;border-radius:3px}.c3 b{position:absolute;left:25.5%;top:9%;width:30%;height:42%;background:#25449a;clip-path:polygon(0 0,100% 6%,88% 100%,0 80%)}
-.c1 svg{position:absolute;inset:auto 0 0;margin:auto;height:96%;width:100%}
-.black{background:#000}.red{background:#ff1a00}.purple{background:linear-gradient(150deg,#52004f,#2a0050)}
-.about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,96px);align-items:start;padding-top:clamp(36px,4vw,60px)}
-.art{aspect-ratio:590/600;border-radius:clamp(24px,3vw,48px);background:linear-gradient(160deg,#6a0a82,#2c0a4d);position:relative;overflow:hidden}
-.art::before,.art::after{content:"";position:absolute;background:rgba(190,120,230,.22);border-radius:30px}
-.art::before{inset:12% 6% 6% 62%;transform:skewY(-6deg)}.art::after{inset:6% 62% 20% 6%;transform:skewY(6deg)}
-.eyebrow{font-size:15px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px}
-h2.hi{font-size:clamp(44px,5.6vw,92px);line-height:1.03}
-.lead{font-size:clamp(20px,1.9vw,32px);line-height:1.35;margin:clamp(20px,2.5vw,40px) 0 16px;font-weight:400}
-.soft{color:var(--soft);font-weight:300}
-.cta{display:inline-block;margin-top:28px;font-weight:500;font-size:clamp(20px,1.8vw,30px)}
-footer{margin-top:clamp(40px,5vw,80px)}
-.hr{height:1px;background:var(--line);margin-bottom:clamp(28px,3vw,48px)}
-.f{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:48px}
-.f b{display:block;font:800 clamp(24px,2.4vw,40px)/1.1 Poppins,sans-serif;text-transform:uppercase}
-.f span{display:block;color:var(--lilac);font-weight:300;margin-top:6px}
-.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,96px);align-items:start;padding-top:clamp(36px,4vw,60px)}
-.contact h2{font-size:clamp(44px,5.6vw,92px);margin-bottom:28px}
-.form{background:var(--pill);border-radius:36px;padding:clamp(22px,2.2vw,40px)}
-.form h3{margin:0 0 24px;font:500 clamp(22px,2vw,32px)/1.2 Jost,sans-serif}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-label{display:block;margin:0 0 8px;font-size:18px}
-.fld{margin-bottom:22px}
-input,select,textarea{width:100%;border:0;border-radius:12px;background:var(--input);color:var(--ink);font:inherit;padding:15px 20px}
-textarea{min-height:140px;resize:vertical}
-::placeholder{color:var(--ph);opacity:1}
-.send{width:100%;border:0;border-radius:99px;background:var(--btn);color:#003459;font:500 clamp(18px,1.6vw,26px) Jost,sans-serif;padding:18px;cursor:pointer;margin-top:8px}
-.send:hover{filter:brightness(.95)}
-.st{min-height:1.4em;margin:12px 0 0;text-align:center;font-size:17px}
-@media (max-width:860px){.about,.contact{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.row{grid-template-columns:1fr}.intro p{margin-right:0}.slide{flex-basis:88%}}
+.wrap{padding-inline:clamp(20px,4vw,64px);max-width:1700px;margin-inline:auto}
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:calc(18px + env(safe-area-inset-top,0px)) clamp(20px,3vw,44px) 0;color:#fff;mix-blend-mode:difference;font:500 clamp(16px,1.3vw,20px) var(--hf)}
+.logo{font-weight:800;font-size:clamp(18px,1.6vw,24px)}
+.nav{display:flex;gap:clamp(16px,3vw,44px)}
+.nav a{position:relative}.nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav a:hover::after,.nav a.on::after{transform:none}
+.soc{display:flex;gap:18px;align-items:center}
+.soc a,.soc span{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;font:800 16px var(--hf)}
+.soc svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8}.soc span{opacity:.5}
+h1,h2{font-family:var(--hf);font-weight:800;text-transform:lowercase;margin:0}
+h1{font-size:clamp(56px,14vw,240px);line-height:.85;letter-spacing:-.045em}
+.lab{font:400 13px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.hero{padding-top:clamp(110px,16vw,190px);padding-bottom:clamp(30px,4vw,60px)}
+.ln{display:block;overflow:hidden;padding-bottom:.06em}.ln i{display:inline-block;font-style:normal;transform:translateY(110%)}
+.play .ln i{animation:up .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*55ms)}
+@keyframes up{to{transform:none}}
+.hrow{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-top:clamp(24px,3vw,44px)}
+.tags{display:flex;gap:10px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.tags li,.pill{border:1.5px solid var(--ink);border-radius:99px;padding:6px 18px;font:500 clamp(15px,1.2vw,18px) var(--hf);text-transform:lowercase;background:none;color:inherit;display:inline-block}
+a.pill:hover,.pill.on{background:var(--ink);color:var(--bg)}.pill[aria-disabled]{opacity:.45;cursor:not-allowed}
+.hrow p{max-width:34ch;margin:0}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+.slide{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;min-height:100svh;padding:clamp(24px,4vw,64px);color:#fff;overflow:hidden;scroll-snap-align:start}
+.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,#0008);z-index:1}
+.slide>*{position:relative;z-index:2}
+.slide .meta{display:flex;justify-content:space-between;font:400 13px var(--mono);text-transform:uppercase}
+.slide h2{font-size:clamp(48px,11vw,190px);line-height:.88;letter-spacing:-.04em;transform:translateY(60px);opacity:0;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .9s}
+.slide.in h2{transform:none;opacity:1}
+.btn{align-self:flex-start;background:#fff;color:var(--ink);border-radius:99px;padding:12px 26px;font:500 18px var(--hf);text-transform:lowercase;transition:transform .3s,background .3s}
+.slide:hover .btn{transform:translateX(10px);background:var(--red);color:#fff}
+.mq{overflow:hidden;white-space:nowrap;border-block:1.5px solid var(--ink);padding:18px 0;background:var(--bg)}
+.mq div{display:inline-block;animation:mq 28s linear infinite;font:800 clamp(30px,5vw,72px)/1 var(--hf);text-transform:lowercase}
+.mq:hover div{animation-play-state:paused}@keyframes mq{to{transform:translateX(-50%)}}
+.sec{padding-block:clamp(40px,6vw,90px)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 28px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.g2{grid-template-columns:repeat(2,1fr);gap:28px}
+.card{position:relative;overflow:hidden;display:block;aspect-ratio:485/362;border-radius:22px;background:var(--card);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+a.card:hover{transform:scale(.97) rotate(-.6deg)}.g2 .card{aspect-ratio:719/498}
+.big{display:grid;gap:40px;max-width:1280px;margin:0 auto}.big .card{aspect-ratio:16/9}.big .card.sq{aspect-ratio:1;max-width:720px;width:100%;margin-inline:auto}
+.card video,.card img,.slide video,.slide img,.art video,.art img{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;display:block}
+.ttl{padding-top:clamp(110px,14vw,170px);padding-bottom:clamp(24px,4vw,56px)}
+.cta{display:block;padding:clamp(50px,8vw,120px) 0;font:800 clamp(40px,9vw,150px)/.9 var(--hf);letter-spacing:-.04em;text-transform:lowercase;transition:color .3s,letter-spacing .5s}.cta:hover{color:var(--red);letter-spacing:-.02em}
+.about,.contact{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,90px);align-items:start;padding-top:clamp(110px,12vw,160px)}
+.art{position:relative;overflow:hidden;aspect-ratio:590/600;border-radius:clamp(24px,3vw,44px);background:linear-gradient(160deg,#7a2cc0,#2a0050)}
+h2.hi,.contact h2{font-size:clamp(44px,7vw,120px);line-height:.9;letter-spacing:-.04em;margin:8px 0 24px}
+.lead{font-size:clamp(20px,1.9vw,30px);line-height:1.35;margin:0 0 16px}.soft{color:#5a6a78}
+.contact{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
+.form{background:var(--card);border-radius:32px;padding:clamp(22px,2.4vw,40px)}
+.form h3{margin:0 0 22px;font:500 clamp(22px,2vw,30px)/1.2 var(--hf)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}.fld{margin-bottom:20px}
+label{display:block;margin:0 0 6px;font:400 13px var(--mono);text-transform:uppercase}
+input,select,textarea{width:100%;border:1.5px solid transparent;border-radius:12px;background:#fff;color:var(--ink);font:inherit;padding:14px 18px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}textarea{min-height:140px;resize:vertical}
+.send{width:100%;border:0;border-radius:99px;background:var(--ink);color:var(--bg);font:500 clamp(18px,1.6vw,24px) var(--hf);padding:18px;cursor:pointer;transition:background .3s}.send:hover{background:var(--red)}
+.st{min-height:1.4em;margin:12px 0 0;text-align:center;font-size:16px}
+footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink);margin-top:clamp(40px,6vw,90px)}
+.f{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}.f b{display:block;font:800 clamp(28px,3.4vw,52px)/1 var(--hf);text-transform:lowercase}
+.fnav{display:flex;gap:24px;align-items:center;flex-wrap:wrap;font:500 18px var(--hf)}.copy{margin-top:28px}
+#load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
+#curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
+#dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
+#dot.big{width:92px;height:92px;margin:-46px}#dot.sm{width:36px;height:36px;margin:-18px;opacity:.85}
+@media (max-width:860px){.about,.contact{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.row{grid-template-columns:1fr}header .soc{display:none}}
 @media (max-width:520px){.grid{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.ln i{transform:none}.rv,.slide h2{opacity:1;transform:none}}
 </style>
 </head>
 <body>
+<div id="load" aria-hidden="true"><span>hold tight</span><span id="pc">0</span></div>
+<div id="curtain"></div>
+<div id="dot"></div>
 <header>
-  <nav class="nav" aria-label="Main">
-    <a href="#work" data-nav="work">Work</a><a href="#about" data-nav="about">About</a><a href="#contact" data-nav="contact">Contact</a>
-  </nav>
+  <a class="logo" href="#work">walison alves</a>
+  <nav class="nav" aria-label="Main"><a href="#work" data-nav="work">work</a><a href="#about" data-nav="about">about</a><a href="#contact" data-nav="contact">contact</a></nav>
   <div class="soc" aria-label="Social links"></div>
 </header>
 
 <main>
-<section data-view="work" class="wrap">
-  <div class="intro">
-    <h1>Work</h1>
-    <p>A collection of visual projects, experiments and ideas.</p>
+<section data-view="work" class="hero wrap" id="hero">
+  <h1 aria-label="walison alves."><span class="ln" data-t="walison"></span><span class="ln" data-t="alves."></span></h1>
+  <div class="hrow">
+    <ul class="tags"><li>2d animation</li><li>direction</li><li>visual development</li></ul>
+    <p class="rv">A collection of visual projects, experiments and ideas.</p>
   </div>
-  <div class="filters">
-    <a class="pill on" href="#work">All work</a><a class="pill" href="#motion">Motion</a><a class="pill" href="#frame-by-frame">Frame by frame</a><span class="pill" aria-disabled="true" title="Coming soon">3D</span>
-  </div>
+  <p class="lab rv" style="margin-top:40px">( featured projects ↓ )</p>
 </section>
-<section data-view="work" aria-label="Featured projects">
-  <div class="car"><div class="track" id="track">
-    <a class="slide black" href="#motion" aria-label="Featured project 1"></a>
-    <a class="slide red" href="#motion" aria-label="Featured project 2"></a>
-    <a class="slide purple" href="#motion" aria-label="Featured project 3"></a>
-  </div></div>
-  <div class="ctl"><button id="prev" aria-label="Previous project">←</button><button id="next" aria-label="Next project">→</button></div>
-</section>
-<section data-view="work" class="wrap">
-  <div class="label">More work</div>
-  <div class="grid">
-    <a class="card c1" href="#projects" aria-label="Character project"><svg viewBox="0 0 300 300" aria-hidden="true"><ellipse cx="150" cy="285" rx="70" ry="14" fill="#5a8591"/><path d="M92 288c0-70 8-120 58-120s58 50 58 120z" fill="#4f7580" stroke="#7a3636" stroke-width="5"/><circle cx="150" cy="92" r="50" fill="#8e3b3b" stroke="#6b2a2a" stroke-width="5"/><path d="M96 80c0-40 25-60 54-60s54 20 54 60z" fill="#4f7580" stroke="#6b2a2a" stroke-width="5"/><path d="M122 96h18M160 96h18" stroke="#2b1a1a" stroke-width="6" stroke-linecap="round"/></svg></a>
-    <a class="card c2" href="#projects" aria-label="City sunset project"></a>
-    <a class="card c3" href="#projects" aria-label="Flag project"><i></i><b></b></a>
-    <div class="card"></div><div class="card"></div><div class="card"></div>
-    <div class="card"></div><div class="card"></div><div class="card"></div>
-  </div>
-  <div class="sc soc"></div>
+<section data-view="work" id="panels" aria-label="Featured projects"></section>
+<section data-view="work" class="mq" aria-hidden="true" id="mq"></section>
+<section data-view="work" class="sec wrap">
+  <div class="lab rv">( more work )</div>
+  <div class="filters rv"><a class="pill on" href="#work">all work</a><a class="pill" href="#motion">motion</a><a class="pill" href="#frame-by-frame">frame by frame</a><span class="pill" aria-disabled="true" title="Coming soon">3d</span></div>
+  <div class="grid" id="more"></div>
+  <a class="cta rv" href="#contact">let’s make something move →</a>
 </section>
 
-<section data-view="motion" class="wrap">
-  <div class="center"><h1>Motion</h1></div>
-  <div class="big"><a class="card black" href="#work" aria-label="Back to work"></a><a class="card red" href="#work" aria-label="Back to work"></a><a class="card purple" href="#work" aria-label="Back to work"></a></div>
-</section>
-
-<section data-view="frame-by-frame" class="wrap">
-  <div class="center"><h1>Frame by frame</h1></div>
-  <div class="grid g2">
-    <div class="card c1"></div><div class="card c2"></div><div class="card c3"><i></i><b></b></div>
-    <div class="card"></div><div class="card"></div><div class="card"></div>
-  </div>
-</section>
-
-<section data-view="projects" class="wrap">
-  <div class="big" style="padding-top:clamp(40px,6vw,90px)">
-    <div class="card c1 sq" role="img" aria-label="Character project"><svg viewBox="0 0 300 300" aria-hidden="true"><ellipse cx="150" cy="285" rx="70" ry="14" fill="#5a8591"/><path d="M92 288c0-70 8-120 58-120s58 50 58 120z" fill="#4f7580" stroke="#7a3636" stroke-width="5"/><circle cx="150" cy="92" r="50" fill="#8e3b3b" stroke="#6b2a2a" stroke-width="5"/><path d="M96 80c0-40 25-60 54-60s54 20 54 60z" fill="#4f7580" stroke="#6b2a2a" stroke-width="5"/><path d="M122 96h18M160 96h18" stroke="#2b1a1a" stroke-width="6" stroke-linecap="round"/></svg></div>
-    <div class="card c2" role="img" aria-label="City sunset project"></div>
-    <div class="card c3" role="img" aria-label="Flag project"><i></i><b></b></div>
-  </div>
-  <div class="sc soc"></div>
-</section>
+<section data-view="motion" class="wrap"><div class="ttl"><h1>motion</h1></div><div class="big" id="mo"></div></section>
+<section data-view="frame-by-frame" class="wrap"><div class="ttl"><h1>frame by frame</h1></div><div class="grid g2" id="fr"></div></section>
+<section data-view="projects" class="wrap"><div class="big" id="pr" style="padding-top:clamp(100px,12vw,150px)"></div></section>
 
 <section data-view="about" class="wrap">
   <div class="about">
-    <div class="art" role="img" aria-label="Illustrated portrait artwork"></div>
-    <div>
-      <div class="eyebrow">About</div>
-      <h2 class="hi">Hi, I’m Walison.</h2>
+    <div class="art rv" role="img" aria-label="Illustrated portrait artwork"></div>
+    <div class="rv">
+      <div class="lab">( about )</div>
+      <h2 class="hi">hi, I’m walison.</h2>
       <p class="lead">I’m Walison Alves, a 2D Animator and Director.<br>I turn ideas into expressive characters, colourful worlds and stories that move.</p>
-      <p class="lead soft" style="font-size:clamp(18px,1.6vw,26px);margin-top:0">My work brings together design, storytelling and animation — from the first sketch to the final frame.</p>
-      <div class="filters" style="margin:28px 0 0"><span class="pill">2D Animation</span><span class="pill">Direction</span><span class="pill">Visual development</span></div>
-      <a class="cta" href="#contact">Let’s make something move &nbsp;→</a>
+      <p class="lead soft" style="font-size:clamp(18px,1.6vw,24px)">My work brings together design, storytelling and animation — from the first sketch to the final frame.</p>
+      <ul class="tags" style="margin:24px 0 0"><li>2d animation</li><li>direction</li><li>visual development</li></ul>
+      <a class="cta" style="padding:30px 0 0;font-size:clamp(28px,4vw,56px)" href="#contact">let’s make something move →</a>
     </div>
   </div>
 </section>
 
 <section data-view="contact" class="wrap">
   <div class="contact">
-    <div>
-      <div class="eyebrow" style="opacity:.6">Contact</div>
-      <h2>Let’s make it move.</h2>
-      <p class="soft" style="max-width:30ch;font-size:clamp(18px,1.6vw,26px)">Have a project in mind or interested in working together? Send me an email.</p>
+    <div class="rv">
+      <div class="lab">( contact )</div>
+      <h2>let’s make it move.</h2>
+      <p class="soft" style="max-width:30ch;font-size:clamp(18px,1.6vw,24px)">Have a project in mind or interested in working together? Send me an email.</p>
     </div>
-    <form class="form" id="form" novalidate>
+    <form class="form rv" id="form" novalidate>
       <h3>Tell me about your project</h3>
       <div class="row">
         <div class="fld"><label for="n">Your name</label><input id="n" name="name" placeholder="Name" autocomplete="name" required></div>
@@ -177,39 +145,49 @@ textarea{min-height:140px;resize:vertical}
       <div class="fld"><label for="t">Project type</label>
         <select id="t" name="type"><option value="">Select a service</option><option>2D animation</option><option>Direction</option><option>Visual development</option><option>Something else</option></select></div>
       <div class="fld"><label for="m">Your message</label><textarea id="m" name="message" placeholder="What would you like to bring to life?" required></textarea></div>
-      <button class="send" type="submit">Send message &nbsp;→</button>
+      <button class="send" type="submit">send message →</button>
       <p class="st" id="st" role="status"></p>
     </form>
   </div>
-  <div class="sc soc" style="justify-content:flex-start"></div>
 </section>
 </main>
 
-<footer data-view="motion about frame-by-frame" class="wrap" id="foot">
-  <div class="hr"></div>
+<footer class="wrap">
   <div class="f">
-    <div><b>Walison Alves</b><span>2D Animator and Director</span><span style="font-size:15px;margin-top:22px">Ideas with character. Stories in motion.</span></div>
-    <nav class="nav" aria-label="Footer"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    <div><b>walison alves</b><span class="lab">2D Animator and Director</span></div>
+    <div class="fnav"><a href="#work">work</a><a href="#about">about</a><a href="#contact">contact</a><div class="soc"></div></div>
   </div>
+  <p class="lab copy">● Ideas with character. Stories in motion. © 2026 Walison Alves</p>
 </footer>
 
 <script>
 // Preencha com seus links e e-mail reais:
 var LINKS={behance:"https://www.behance.net/walisonalves4",instagram:"https://www.instagram.com/walison.an/",email:"walves.an@gmail.com"};
 // Seus vídeos, imagens e GIFs (arquivos na pasta media do GitHub).
-// Exemplo: var MEDIA={"work-card-1":"media/personagem.gif","work-card-2":"media/cidade.mp4"};
+// Exemplo: var MEDIA={"work-slide-1":"media/personagem.mp4","work-card-2":"media/cidade.mp4"};
 var MEDIA={};
-var ICONS={behance:"Bē",
-instagram:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6"/></svg>',
-email:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>'};
-var NAMES={behance:"Behance",linkedin:"LinkedIn",instagram:"Instagram",email:"E-mail"};
-document.querySelectorAll(".soc").forEach(function(box){
-  box.innerHTML=Object.keys(ICONS).map(function(k){
-    var u=LINKS[k]; if(k==="email"&&u) u="mailto:"+u;
-    return u?'<a href="'+u+'" aria-label="'+NAMES[k]+'" target="_blank" rel="noopener">'+ICONS[k]+'</a>':'<span aria-label="'+NAMES[k]+'">'+ICONS[k]+'</span>';
-  }).join("");
-});
+// Projetos em destaque (nome, categoria e cor de fundo; troque pelos seus):
+var P=[{t:"character study",k:"2d animation",g:"linear-gradient(135deg,#7a2cc0,#2a0050)"},{t:"city sunset",k:"motion",g:"linear-gradient(135deg,#ff1a00,#4d0500)"},{t:"flag",k:"frame by frame",g:"linear-gradient(135deg,#25449a,#00061f)"}];
 
+var ICONS={behance:"Bē",instagram:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6"/></svg>',email:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>'};
+var NAMES={behance:"Behance",instagram:"Instagram",email:"E-mail"};
+document.querySelectorAll(".soc").forEach(function(b){b.innerHTML=Object.keys(ICONS).map(function(k){var u=LINKS[k];if(k==="email"&&u)u="mailto:"+u;return u?'<a href="'+u+'" aria-label="'+NAMES[k]+'" target="_blank" rel="noopener">'+ICONS[k]+'</a>':'<span aria-label="'+NAMES[k]+'">'+ICONS[k]+'</span>'}).join("")});
+
+// Constrói os blocos
+var $=function(id){return document.getElementById(id)};
+$("panels").innerHTML=P.map(function(p,i){return '<a class="slide" href="#projects" aria-label="'+p.t+'" style="background:'+p.g+'"><div class="meta"><span>0'+(i+1)+' / 0'+P.length+'</span><span>'+p.k+'</span></div><h2>'+p.t+'</h2><span class="btn">launch project →</span></a>'}).join("");
+var word="2d animation ✺ direction ✺ visual development ✺ characters ✺ worlds ✺ stories that move ✺ ";
+$("mq").innerHTML="<div>"+Array(8).join(word)+"</div>";
+function cards(n,links,cls){var h="";for(var i=0;i<n;i++){var g=P[i]&&links?' style="background:'+P[i].g+'"':"";h+=(links&&i<3?'<a class="card'+(i===0&&cls?" sq":"")+'" href="'+links+'"'+g+'></a>':'<div class="card"></div>')}return h}
+$("more").innerHTML=cards(9,"#projects");
+$("mo").innerHTML='<a class="card" href="#work" style="background:#000"></a><a class="card" href="#work" style="background:#ff1a00"></a><a class="card" href="#work" style="background:linear-gradient(150deg,#52004f,#2a0050)"></a>';
+$("fr").innerHTML=cards(6,"#projects");
+$("pr").innerHTML=cards(3,"#work",1);
+
+// Letras do título
+document.querySelectorAll(".ln").forEach(function(l){l.innerHTML=l.dataset.t.split("").map(function(c,i){return '<i style="--i:'+i+'">'+c+'</i>'}).join("")});
+
+// Mídia automática (mesmos nomes de antes: work-slide-1, work-card-1, motion-card-1, about-art-1...)
 var cnt={};
 document.querySelectorAll("main .card,main .slide,main .art").forEach(function(el){
   var v=el.closest("[data-view]").dataset.view,t=el.classList.contains("slide")?"slide":el.classList.contains("art")?"art":"card",k=v+"-"+t,n=cnt[k]=(cnt[k]||0)+1;
@@ -217,34 +195,56 @@ document.querySelectorAll("main .card,main .slide,main .art").forEach(function(e
   var f=MEDIA[el.dataset.media];
   if(f){var vid=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(vid?"video":"img");m.src=f;
     if(vid){m.autoplay=true;m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","")}else{m.alt=""}
-    el.appendChild(m)}
+    el.insertBefore(m,el.firstChild)}
 });
+
+// Rotas
 var VIEWS=["work","projects","motion","frame-by-frame","about","contact"],TITLES={work:"Work",projects:"Projects",motion:"Motion","frame-by-frame":"Frame by frame",about:"About",contact:"Contact"};
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("in",e.isIntersecting)})},{threshold:.25});
+document.querySelectorAll(".rv,.slide").forEach(function(e){io.observe(e)});
 function route(){
   var h=location.hash.slice(1),v=VIEWS.indexOf(h)>-1?h:"work";
-  document.querySelectorAll("[data-view]").forEach(function(s){s.hidden=s.dataset.view.split(" ").indexOf(v)<0});
-  var cur=(v==="about"||v==="contact")?v:"work";
-  document.querySelectorAll("header .nav a").forEach(function(a){a.classList.toggle("on",a.dataset.nav===cur)});
+  document.querySelectorAll("[data-view]").forEach(function(s){s.hidden=s.dataset.view!==v});
+  document.querySelectorAll(".nav a").forEach(function(a){a.classList.toggle("on",a.dataset.nav===((v==="about"||v==="contact")?v:"work"))});
   document.title=TITLES[v]+" — Walison Alves";
   window.scrollTo(0,0);
-  if(v==="work") place();
+  var hero=$("hero");hero.classList.remove("play");void hero.offsetWidth;hero.classList.add("play");
 }
-var track=document.getElementById("track"),slides=[].slice.call(track.children),i=1;
-function place(){
-  var s=slides[i],box=track.parentElement.clientWidth;
-  track.style.transform="translateX("+(box/2-(s.offsetLeft+s.offsetWidth/2))+"px)";
-  slides.forEach(function(x,k){x.classList.toggle("cur",k===i)});
-}
-function go(n){i=(n+slides.length)%slides.length;place()}
-slides.forEach(function(s,k){s.addEventListener("click",function(e){if(k!==i){e.preventDefault();go(k)}})});
-document.getElementById("prev").onclick=function(){go(i-1)};
-document.getElementById("next").onclick=function(){go(i+1)};
-addEventListener("resize",place);addEventListener("hashchange",route);addEventListener("load",route);
-route();
+addEventListener("hashchange",route);route();
 
-document.getElementById("form").addEventListener("submit",function(ev){
+// Transição em cortina entre páginas
+var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=$("curtain");
+document.addEventListener("click",function(e){
+  var a=e.target.closest('a[href^="#"]');if(!a)return;
+  var h=a.getAttribute("href").slice(1);if(!h)return;
+  e.preventDefault();
+  if(h===(location.hash.slice(1)||"work")){scrollTo({top:0,behavior:"smooth"});return}
+  if(reduce){location.hash=h;return}
+  cur.classList.add("on");
+  setTimeout(function(){location.hash=h;cur.classList.add("out");setTimeout(function(){cur.style.transition="none";cur.className="";void cur.offsetWidth;cur.style.transition=""},520)},460);
+});
+
+// Cursor que segue o mouse (só em telas com mouse)
+var dot=$("dot");
+if(matchMedia("(pointer:fine)").matches&&!reduce){
+  dot.style.display="flex";var x=innerWidth/2,y=innerHeight/2,tx=x,ty=y;
+  addEventListener("mousemove",function(e){tx=e.clientX;ty=e.clientY});
+  (function loop(){x+=(tx-x)*.18;y+=(ty-y)*.18;dot.style.transform="translate("+x+"px,"+y+"px)";requestAnimationFrame(loop)})();
+  document.addEventListener("mouseover",function(e){
+    var s=e.target.closest(".slide"),c=e.target.closest("a,button,.card");
+    dot.className=s?"big":c?"sm":"";dot.textContent=s?"view":"";
+  });
+}
+
+// Tela de carregamento "hold tight"
+var pc=$("pc"),ld=$("load");
+(function(){var n=0,t=reduce?100:0;function step(){n=Math.min(100,n+Math.ceil((100-n)/9));pc.textContent=n;if(n<100)setTimeout(step,45);else setTimeout(function(){ld.classList.add("done")},250)}reduce?ld.classList.add("done"):step()})();
+setTimeout(function(){ld.classList.add("done")},3000);
+
+// Formulário
+$("form").addEventListener("submit",function(ev){
   ev.preventDefault();
-  var f=ev.target,st=document.getElementById("st"),n=f.name.value.trim(),e=f.email.value.trim(),m=f.message.value.trim();
+  var f=ev.target,st=$("st"),n=f.name.value.trim(),e=f.email.value.trim(),m=f.message.value.trim();
   if(!n||!/^\S+@\S+\.\S+$/.test(e)||!m){st.textContent="Add your name, a valid email and a message to send.";return}
   var body="Name: "+n+"\nEmail: "+e+"\nProject type: "+(f.type.value||"—")+"\n\n"+m;
   location.href="mailto:"+encodeURIComponent(LINKS.email)+"?subject="+encodeURIComponent("Project inquiry from "+n)+"&body="+encodeURIComponent(body);
