@@ -165,9 +165,13 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 var LINKS={behance:"https://www.behance.net/walisonalves4",instagram:"https://www.instagram.com/walison.an/",email:"walves.an@gmail.com"};
 // Seus vídeos, imagens e GIFs (arquivos na pasta media do GitHub).
 // Exemplo: var MEDIA={"work-slide-1":"media/personagem.mp4","work-card-2":"media/cidade.mp4"};
-var MEDIA={};
+var MEDIA={
+  "work-slide-1":"chikinz.project.mp4",
+  "work-slide-2":"spotify.ex.project.mp4",
+  "work-slide-3":"transborde.project.mp4"
+};
 // Projetos em destaque (nome, categoria e cor de fundo; troque pelos seus):
-var P=[{t:"character study",k:"2d animation",g:"linear-gradient(135deg,#7a2cc0,#2a0050)"},{t:"city sunset",k:"motion",g:"linear-gradient(135deg,#ff1a00,#4d0500)"},{t:"flag",k:"frame by frame",g:"linear-gradient(135deg,#25449a,#00061f)"}];
+var P=[{t:"chikinz",k:"motion",g:"linear-gradient(135deg,#7a2cc0,#2a0050)"},{t:"spotify ex",k:"motion",g:"linear-gradient(135deg,#ff1a00,#4d0500)"},{t:"transborde",k:"motion",g:"linear-gradient(135deg,#25449a,#00061f)"}];
 
 var ICONS={behance:"Bē",instagram:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6"/></svg>',email:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>'};
 var NAMES={behance:"Behance",instagram:"Instagram",email:"E-mail"};
@@ -194,14 +198,14 @@ document.querySelectorAll("main .card,main .slide,main .art").forEach(function(e
   el.dataset.media=(v==="projects"?"work":v)+"-"+t+"-"+n;
   var f=MEDIA[el.dataset.media];
   if(f){var vid=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(vid?"video":"img");m.src=f;
-    if(vid){m.autoplay=true;m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","")}else{m.alt=""}
+    if(vid){m.preload="metadata";m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","");m.setAttribute("playsinline","")}else{m.alt=""}
     el.insertBefore(m,el.firstChild)}
 });
 
 // Rotas
 var VIEWS=["work","projects","motion","frame-by-frame","about","contact"],TITLES={work:"Work",projects:"Projects",motion:"Motion","frame-by-frame":"Frame by frame",about:"About",contact:"Contact"};
-var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("in",e.isIntersecting)})},{threshold:.25});
-document.querySelectorAll(".rv,.slide").forEach(function(e){io.observe(e)});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("in",e.isIntersecting);var v=e.target.querySelector("video");if(v){if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()}})},{threshold:.25});
+document.querySelectorAll(".rv,.slide,.card,.art").forEach(function(e){io.observe(e)});
 function route(){
   var h=location.hash.slice(1),v=VIEWS.indexOf(h)>-1?h:"work";
   document.querySelectorAll("[data-view]").forEach(function(s){s.hidden=s.dataset.view!==v});
