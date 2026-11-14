@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Walison Alves — 2D Animator and Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Poppins:wght@800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ececec;--ink:#003459;--pill:#d3dae0;--pill-on:#b9c5cf;--input:#91a2af;--ph:#c3cdd6;--soft:#7fb0c5;--lilac:#b58fc4;--line:#9b6bb0;--card:#d9d9d9;--btn:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151b;--ink:#dbe9f5;--pill:#1f2a35;--pill-on:#2f3e4c;--input:#2d3b48;--ph:#7d90a1;--soft:#7fb0c5;--lilac:#b58fc4;--line:#6f4a82;--card:#1c242c;--btn:#e8f0f6}}
+:root[data-theme="dark"]{--bg:#10151b;--ink:#dbe9f5;--pill:#1f2a35;--pill-on:#2f3e4c;--input:#2d3b48;--ph:#7d90a1;--soft:#7fb0c5;--lilac:#b58fc4;--line:#6f4a82;--card:#1c242c;--btn:#e8f0f6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 clamp(16px,1.3vw,22px)/1.45 Jost,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+[hidden]{display:none!important}
+.wrap{padding-inline:clamp(20px,9vw,164px);max-width:1822px;margin-inline:auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,2.7vw,50px) 0;gap:16px;flex-wrap:wrap}
+.nav{display:flex;gap:clamp(18px,4.6vw,84px);font-size:clamp(17px,1.4vw,24px)}
+.nav a{position:relative;padding-bottom:10px}
+.nav a.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:2px;background:var(--ink)}
+.soc{display:flex;gap:clamp(18px,2.4vw,30px);align-items:center;font-weight:500;font-size:20px}
+.soc a,.soc span{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;font-weight:800;font-family:Poppins,sans-serif;font-size:17px}
+.soc svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
+.soc span{opacity:.55}
+h1,h2{font-family:Poppins,sans-serif;font-weight:900;text-transform:uppercase;margin:0;line-height:1}
+h1{font-size:clamp(52px,8vw,128px);letter-spacing:-.01em}
+.pill{display:inline-block;background:var(--pill);border-radius:99px;padding:8px clamp(20px,2vw,34px);font-size:clamp(16px,1.3vw,22px)}
+a.pill:hover,.pill.on{background:var(--pill-on)}
+.pill[aria-disabled]{opacity:.6;cursor:not-allowed}
+.intro{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-start;padding-top:clamp(24px,3vw,48px)}
+.intro p{max-width:30ch;margin:14px clamp(0px,9vw,170px) 0 0;font-size:clamp(18px,1.6vw,28px);font-weight:300;line-height:1.35}
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin:clamp(24px,3vw,48px) 0}
+.car{overflow:hidden;margin-top:8px}
+.track{display:flex;gap:clamp(16px,2.9vw,52px);transition:transform .5s cubic-bezier(.3,.7,.2,1);will-change:transform}
+.slide{flex:0 0 82%;aspect-ratio:1494/428;min-height:200px;border-radius:clamp(16px,2vw,32px);transition:opacity .3s}
+.slide:not(.cur){opacity:.95;cursor:pointer}
+.slide.cur{cursor:zoom-in}
+.ctl{display:flex;justify-content:center;gap:12px;margin-top:20px}
+.ctl button{width:44px;height:44px;border-radius:50%;border:0;background:var(--pill);color:var(--ink);font-size:20px;cursor:pointer}
+.ctl button:hover{background:var(--pill-on)}
+.label{font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin:clamp(32px,4vw,64px) 0 14px;opacity:.85}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{aspect-ratio:485/362;border-radius:24px;background:var(--card);position:relative;overflow:hidden;display:block}
+a.card{transition:transform .25s}a.card:hover{transform:translateY(-4px)}
+.g2{grid-template-columns:repeat(2,1fr);gap:44px;margin:0 auto;max-width:1480px}.g2 .card{aspect-ratio:719/498}
+.big{display:grid;gap:78px;max-width:1280px;margin:0 auto}.big .card{aspect-ratio:16/9;border-radius:clamp(14px,1.6vw,26px)}.big .card.sq{aspect-ratio:1;max-width:720px;width:100%;margin-inline:auto}.slide,.art{position:relative;overflow:hidden}.card video,.card img,.slide video,.slide img,.art video,.art img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;display:block}
+.center{text-align:center;padding:clamp(28px,3vw,48px) 0 clamp(36px,4vw,60px)}
+.sc{display:flex;justify-content:center;padding:clamp(44px,6vw,90px) 0 clamp(28px,4vw,56px)}
+.c1{background:#fbf4be}.c2{background:linear-gradient(#4d0500,#ff1a00 55%,#ff9a45)}.c2::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:#1d1d1d;clip-path:polygon(0 60%,6% 60%,6% 25%,12% 25%,12% 50%,18% 50%,18% 10%,24% 10%,24% 55%,32% 55%,32% 30%,40% 30%,40% 62%,48% 62%,48% 20%,55% 20%,55% 45%,63% 45%,63% 5%,70% 5%,70% 55%,80% 55%,80% 25%,88% 25%,88% 50%,100% 50%,100% 100%,0 100%)}
+.c3{background:linear-gradient(#00061f,#0a1b5c)}.c3 i{position:absolute;left:23%;top:6%;bottom:-4%;width:2.2%;background:#c9d3e0;border-radius:3px}.c3 b{position:absolute;left:25.5%;top:9%;width:30%;height:42%;background:#25449a;clip-path:polygon(0 0,100% 6%,88% 100%,0 80%)}
+.c1 svg{position:absolute;inset:auto 0 0;margin:auto;height:96%;width:100%}
+.black{background:#000}.red{background:#ff1a00}.purple{background:linear-gradient(150deg,#52004f,#2a0050)}
+.about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,96px);align-items:start;padding-top:clamp(36px,4vw,60px)}
+.art{aspect-ratio:590/600;border-radius:clamp(24px,3vw,48px);background:linear-gradient(160deg,#6a0a82,#2c0a4d);position:relative;overflow:hidden}
+.art::before,.art::after{content:"";position:absolute;background:rgba(190,120,230,.22);border-radius:30px}
+.art::before{inset:12% 6% 6% 62%;transform:skewY(-6deg)}.art::after{inset:6% 62% 20% 6%;transform:skewY(6deg)}
+.eyebrow{font-size:15px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px}
+h2.hi{font-size:clamp(44px,5.6vw,92px);line-height:1.03}
+.lead{font-size:clamp(20px,1.9vw,32px);line-height:1.35;margin:clamp(20px,2.5vw,40px) 0 16px;font-weight:400}
+.soft{color:var(--soft);font-weight:300}
+.cta{display:inline-block;margin-top:28px;font-weight:500;font-size:clamp(20px,1.8vw,30px)}
+footer{margin-top:clamp(40px,5vw,80px)}
+.hr{height:1px;background:var(--line);margin-bottom:clamp(28px,3vw,48px)}
+.f{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:48px}
+.f b{display:block;font:800 clamp(24px,2.4vw,40px)/1.1 Poppins,sans-serif;text-transform:uppercase}
+.f span{display:block;color:var(--lilac);font-weight:300;margin-top:6px}
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,96px);align-items:start;padding-top:clamp(36px,4vw,60px)}
+.contact h2{font-size:clamp(44px,5.6vw,92px);margin-bottom:28px}
+.form{background:var(--pill);border-radius:36px;padding:clamp(22px,2.2vw,40px)}
+.form h3{margin:0 0 24px;font:500 clamp(22px,2vw,32px)/1.2 Jost,sans-serif}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+label{display:block;margin:0 0 8px;font-size:18px}
+.fld{margin-bottom:22px}
+input,select,textarea{width:100%;border:0;border-radius:12px;background:var(--input);color:var(--ink);font:inherit;padding:15px 20px}
+textarea{min-height:140px;resize:vertical}
+::placeholder{color:var(--ph);opacity:1}
+.send{width:100%;border:0;border-radius:99px;background:var(--btn);color:#003459;font:500 clamp(18px,1.6vw,26px) Jost,sans-serif;padding:18px;cursor:pointer;margin-top:8px}
+.send:hover{filter:brightness(.95)}
+.st{min-height:1.4em;margin:12px 0 0;text-align:center;font-size:17px}
+@media (max-width:860px){.about,.contact{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.row{grid-template-columns:1fr}.intro p{margin-right:0}.slide{flex-basis:88%}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main">
+    <a href="#work" data-nav="work">Work</a><a href="#about" data-nav="about">About</a><a href="#contact" data-nav="contact">Contact</a>
+  </nav>
+  <div class="soc" aria-label="Social links"></div>
+</header>
+
+<main>
+<section data-view="work" class="wrap">
+  <div class="intro">
+    <h1>Work</h1>
+    <p>Worlds, characters and stories. A selection of ideas brought to life through motion.</p>
+  </div>
+  <div class="filters">
+    <a class="pill on" href="#work">All work</a><a class="pill" href="#motion">Motion</a><a class="pill" href="#frame-by-frame">Frame by frame</a><span class="pill" aria-disabled="true" title="Coming soon">3D</span>
+  </div>
+</section>
+<section data-view="work" aria-label="Featured projects">
+  <div class="car"><div class="track" id="track">
+    <a class="slide black" href="#motion" aria-label="Featured project 1"></a>
+    <a class="slide red" href="#motion" aria-label="Featured project 2"></a>
+    <a class="slide purple" href="#motion" aria-label="Featured project 3"></a>
+  </div></div>
+  <div class="ctl"><button id="prev" aria-label="Previous project">←</button><button id="next" aria-label="Next project">→</button></div>
+</section>
+<section data-view="work" class="wrap">
+  <div class="label">More work</div>
+  <div class="grid">
+    <a class="card c1" href="#projects" aria-label="Character project"><svg viewBox="0 0 300 300" aria-hidden="true"><ellipse cx="150" cy="285" rx="70" ry="14" fill="#5a8591"/><path d="M92 288c0-70 8-120 58-120s58 50 58 120z" fill="#4f7580" stroke="#7a3636" stroke-width="5"/><circle cx="150" cy="92" r="50" fill="#8e3b3b" stroke="#6b2a2a" stroke-width="5"/><path d="M96 80c0-40 25-60 54-60s54 20 54 60z" fill="#4f7580" stroke="#6b2a2a" stroke-width="5"/><path d="M122 96h18M160 96h18" stroke="#2b1a1a" stroke-width="6" stroke-linecap="round"/></svg></a>
+    <a class="card c2" href="#projects" aria-label="City sunset project"></a>
+    <a class="card c3" href="#projects" aria-label="Flag project"><i></i><b></b></a>
+    <div class="card"></div><div class="card"></div><div class="card"></div>
+    <div class="card"></div><div class="card"></div><div class="card"></div>
+  </div>
+  <div class="sc soc"></div>
+</section>
+
+<section data-view="motion" class="wrap">
+  <div class="center"><h1>Motion</h1></div>
+  <div class="big"><a class="card black" href="#work" aria-label="Back to work"></a><a class="card red" href="#work" aria-label="Back to work"></a><a class="card purple" href="#work" aria-label="Back to work"></a></div>
+</section>
+
+<section data-view="frame-by-frame" class="wrap">
+  <div class="center"><h1>Frame by frame</h1></div>
+  <div class="grid g2">
+    <div class="card c1"></div><div class="card c2"></div><div class="card c3"><i></i><b></b></div>
+    <div class="card"></div><div class="card"></div><div class="card"></div>
+  </div>
+</section>
+
+<section data-view="projects" class="wrap">
+  <div class="big" style="padding-top:clamp(40px,6vw,90px)">
+    <div class="card c1 sq" role="img" aria-label="Character project"><svg viewBox="0 0 300 300" aria-hidden="true"><ellipse cx="150" cy="285" rx="70" ry="14" fill="#5a8591"/><path d="M92 288c0-70 8-120 58-120s58 50 58 120z" fill="#4f7580" stroke="#7a3636" stroke-width="5"/><circle cx="150" cy="92" r="50" fill="#8e3b3b" stroke="#6b2a2a" stroke-width="5"/><path d="M96 80c0-40 25-60 54-60s54 20 54 60z" fill="#4f7580" stroke="#6b2a2a" stroke-width="5"/><path d="M122 96h18M160 96h18" stroke="#2b1a1a" stroke-width="6" stroke-linecap="round"/></svg></div>
+    <div class="card c2" role="img" aria-label="City sunset project"></div>
+    <div class="card c3" role="img" aria-label="Flag project"><i></i><b></b></div>
+  </div>
+  <div class="sc soc"></div>
+</section>
+
+<section data-view="about" class="wrap">
+  <div class="about">
+    <div class="art" role="img" aria-label="Illustrated portrait artwork"></div>
+    <div>
+      <div class="eyebrow">About</div>
+      <h2 class="hi">Hi, I’m Walison.</h2>
+      <p class="lead">I’m Walison Alves, a 2D Animator and Director.<br>I turn ideas into expressive characters, colourful worlds and stories that move.</p>
+      <p class="lead soft" style="font-size:clamp(18px,1.6vw,26px);margin-top:0">My work brings together design, storytelling and animation — from the first sketch to the final frame.</p>
+      <div class="filters" style="margin:28px 0 0"><span class="pill">2D Animation</span><span class="pill">Direction</span><span class="pill">Visual development</span></div>
+      <a class="cta" href="#contact">Let’s make something move &nbsp;→</a>
+    </div>
+  </div>
+</section>
+
+<section data-view="contact" class="wrap">
+  <div class="contact">
+    <div>
+      <div class="eyebrow" style="opacity:.6">Contact</div>
+      <h2>Let’s make it move.</h2>
+      <p class="soft" style="max-width:30ch;font-size:clamp(18px,1.6vw,26px)">Have a project in mind or interested in working together? Send me an email.</p>
+    </div>
+    <form class="form" id="form" novalidate>
+      <h3>Tell me about your project</h3>
+      <div class="row">
+        <div class="fld"><label for="n">Your name</label><input id="n" name="name" placeholder="Name" autocomplete="name" required></div>
+        <div class="fld"><label for="e">Your email</label><input id="e" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+      </div>
+      <div class="fld"><label for="t">Project type</label>
+        <select id="t" name="type"><option value="">Select a service</option><option>2D animation</option><option>Direction</option><option>Visual development</option><option>Something else</option></select></div>
+      <div class="fld"><label for="m">Your message</label><textarea id="m" name="message" placeholder="What would you like to bring to life?" required></textarea></div>
+      <button class="send" type="submit">Send message &nbsp;→</button>
+      <p class="st" id="st" role="status"></p>
+    </form>
+  </div>
+  <div class="sc soc" style="justify-content:flex-start"></div>
+</section>
+</main>
+
+<footer data-view="motion about frame-by-frame" class="wrap" id="foot">
+  <div class="hr"></div>
+  <div class="f">
+    <div><b>Walison Alves</b><span>2D Animator and Director</span><span style="font-size:15px;margin-top:22px">Ideas with character. Stories in motion.</span></div>
+    <nav class="nav" aria-label="Footer"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  </div>
+</footer>
+
+<script>
+// Preencha com seus links e e-mail reais:
+var LINKS={behance:"",linkedin:"",instagram:"",email:""};
+// Seus vídeos, imagens e GIFs (arquivos na pasta media do GitHub).
+// Exemplo: var MEDIA={"work-card-1":"media/personagem.gif","work-card-2":"media/cidade.mp4"};
+var MEDIA={};
+var ICONS={behance:"Bē",linkedin:"in",
+instagram:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6"/></svg>',
+email:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>'};
+var NAMES={behance:"Behance",linkedin:"LinkedIn",instagram:"Instagram",email:"E-mail"};
+document.querySelectorAll(".soc").forEach(function(box){
+  box.innerHTML=Object.keys(ICONS).map(function(k){
+    var u=LINKS[k]; if(k==="email"&&u) u="mailto:"+u;
+    return u?'<a href="'+u+'" aria-label="'+NAMES[k]+'" target="_blank" rel="noopener">'+ICONS[k]+'</a>':'<span aria-label="'+NAMES[k]+'">'+ICONS[k]+'</span>';
+  }).join("");
+});
+
+var cnt={};
+document.querySelectorAll("main .card,main .slide,main .art").forEach(function(el){
+  var v=el.closest("[data-view]").dataset.view,t=el.classList.contains("slide")?"slide":el.classList.contains("art")?"art":"card",k=v+"-"+t,n=cnt[k]=(cnt[k]||0)+1;
+  el.dataset.media=(v==="projects"?"work":v)+"-"+t+"-"+n;
+  var f=MEDIA[el.dataset.media];
+  if(f){var vid=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(vid?"video":"img");m.src=f;
+    if(vid){m.autoplay=true;m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","")}else{m.alt=""}
+    el.appendChild(m)}
+});
+var VIEWS=["work","projects","motion","frame-by-frame","about","contact"],TITLES={work:"Work",projects:"Projects",motion:"Motion","frame-by-frame":"Frame by frame",about:"About",contact:"Contact"};
+function route(){
+  var h=location.hash.slice(1),v=VIEWS.indexOf(h)>-1?h:"work";
+  document.querySelectorAll("[data-view]").forEach(function(s){s.hidden=s.dataset.view.split(" ").indexOf(v)<0});
+  var cur=(v==="about"||v==="contact")?v:"work";
+  document.querySelectorAll("header .nav a").forEach(function(a){a.classList.toggle("on",a.dataset.nav===cur)});
+  document.title=TITLES[v]+" — Walison Alves";
+  window.scrollTo(0,0);
+  if(v==="work") place();
+}
+var track=document.getElementById("track"),slides=[].slice.call(track.children),i=1;
+function place(){
+  var s=slides[i],box=track.parentElement.clientWidth;
+  track.style.transform="translateX("+(box/2-(s.offsetLeft+s.offsetWidth/2))+"px)";
+  slides.forEach(function(x,k){x.classList.toggle("cur",k===i)});
+}
+function go(n){i=(n+slides.length)%slides.length;place()}
+slides.forEach(function(s,k){s.addEventListener("click",function(e){if(k!==i){e.preventDefault();go(k)}})});
+document.getElementById("prev").onclick=function(){go(i-1)};
+document.getElementById("next").onclick=function(){go(i+1)};
+addEventListener("resize",place);addEventListener("hashchange",route);addEventListener("load",route);
+route();
+
+document.getElementById("form").addEventListener("submit",function(ev){
+  ev.preventDefault();
+  var f=ev.target,st=document.getElementById("st"),n=f.name.value.trim(),e=f.email.value.trim(),m=f.message.value.trim();
+  if(!n||!/^\S+@\S+\.\S+$/.test(e)||!m){st.textContent="Add your name, a valid email and a message to send.";return}
+  var body="Name: "+n+"\nEmail: "+e+"\nProject type: "+(f.type.value||"—")+"\n\n"+m;
+  location.href="mailto:"+encodeURIComponent(LINKS.email)+"?subject="+encodeURIComponent("Project inquiry from "+n)+"&body="+encodeURIComponent(body);
+  st.textContent="Opening your email app…";
+});
+</script>
+</body>
+</html>
