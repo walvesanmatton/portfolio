@@ -86,13 +86,17 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 .pm{border-radius:22px;overflow:hidden;background:#000}.pm video,.pm img{display:block;width:100%;height:auto}
 .crs{margin-top:14px;display:grid;gap:4px}.cr{margin:0}
 .pms.tight{gap:0;max-width:none}.pms.tight .pm{border-radius:0;background:none}.pms.tight .pm:first-child{border-radius:22px 22px 0 0}.pms.tight .pm:last-child{border-radius:0 0 22px 22px}.pms.tight .pm img{width:calc(100% + 2px);max-width:none;margin:-1px}
+.hero{position:relative}
+.spin{position:absolute;right:clamp(20px,4vw,64px);top:clamp(84px,8vw,140px);width:clamp(64px,9vw,140px);aspect-ratio:1;pointer-events:none;animation:spin var(--spin,24s) linear infinite}
+.spin svg{display:block;width:100%;height:100%}
+@keyframes spin{to{transform:rotate(360deg)}}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
 #dot.big{width:92px;height:92px;margin:-46px}#dot.sm{width:36px;height:36px;margin:-18px;opacity:.85}
 @media (max-width:860px){.about,.contact{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.row{grid-template-columns:1fr}header .soc{display:none}}
 @media (max-width:520px){.grid{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.mq div{animation:mq var(--d,120s) linear infinite!important}.ln i{transform:none}.rv,.slide h2{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.mq div{animation:mq var(--d,120s) linear infinite!important}.spin{animation:spin var(--spin,24s) linear infinite!important}.ln i{transform:none}.rv,.slide h2{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -107,6 +111,7 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 
 <main>
 <section data-view="work" class="hero wrap" id="hero">
+  <div class="spin" aria-hidden="true"><svg viewBox="0 0 102 102"><g fill="currentColor"><polygon points="55.00,35.50 55.00,9.50 47.00,9.50 47.00,35.50"/><polygon points="60.63,38.21 70.58,14.19 63.19,11.13 53.24,35.15"/><polygon points="64.79,42.87 83.17,24.48 77.52,18.83 59.13,37.21"/><polygon points="66.85,48.76 90.87,38.81 87.81,31.42 63.79,41.37"/><polygon points="66.50,55.00 92.50,55.00 92.50,47.00 66.50,47.00"/><polygon points="63.79,60.63 87.81,70.58 90.87,63.19 66.85,53.24"/><polygon points="59.13,64.79 77.52,83.17 83.17,77.52 64.79,59.13"/><polygon points="53.24,66.85 63.19,90.87 70.58,87.81 60.63,63.79"/><polygon points="47.00,66.50 47.00,92.50 55.00,92.50 55.00,66.50"/><polygon points="41.37,63.79 31.42,87.81 38.81,90.87 48.76,66.85"/><polygon points="37.21,59.13 18.83,77.52 24.48,83.17 42.87,64.79"/><polygon points="35.15,53.24 11.13,63.19 14.19,70.58 38.21,60.63"/><polygon points="35.50,47.00 9.50,47.00 9.50,55.00 35.50,55.00"/><polygon points="38.21,41.37 14.19,31.42 11.13,38.81 35.15,48.76"/><polygon points="42.87,37.21 24.48,18.83 18.83,24.48 37.21,42.87"/><polygon points="48.76,35.15 38.81,11.13 31.42,14.19 41.37,38.21"/><circle cx="51" cy="51" r="19.2"/></g></svg></div>
   <h1 aria-label="walison alves."><span class="ln" data-t="walison"></span><span class="ln" data-t="alves."></span></h1>
   <div class="hrow">
     <ul class="tags"><li>2d animation</li><li>direction</li><li>visual development</li></ul>
@@ -126,7 +131,8 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 <section data-view="animation" class="wrap"><div class="ttl"><a class="lab back" href="#work">← work</a><h1>animation</h1></div><div class="grid g2" id="an"></div></section>
 <section data-view="motion" class="wrap"><div class="ttl"><a class="lab back" href="#animation">← animation</a><h1>motion</h1></div><div class="grid" id="mo"></div></section>
 <section data-view="frame-by-frame" class="wrap"><div class="ttl"><a class="lab back" href="#animation">← animation</a><h1>frame by frame</h1></div><div class="grid" id="fr"></div></section>
-<section data-view="design" class="wrap"><div class="ttl"><a class="lab back" href="#work">← work</a><h1>design</h1></div><div class="grid" id="ds"></div></section>
+<section data-view="design" class="wrap"><div class="ttl"><a class="lab back" href="#work">← work</a><h1>design</h1></div></section>
+<section data-view="design" id="ds" aria-label="Design projects"></section>
 <section data-view="project" class="wrap"><article id="pj" style="padding-top:clamp(110px,14vw,170px)"></article></section>
 
 <section data-view="about" class="wrap">
@@ -215,6 +221,8 @@ function by(cat){return PROJECTS.filter(function(p){return p.cat===cat})}
 function cnt(n){return n?n+(n===1?" project":" projects"):"coming soon"}
 function pcard(p){return '<a class="card p" href="#project-'+p.id+'" aria-label="'+p.title+'"'+(p.cover?' data-cover="'+p.cover+'"':'')+(p.g?' style="background:'+p.g+'"':'')+'><span class="cap">'+p.title+'</span></a>'}
 function list(cat){var a=by(cat),h=a.map(pcard).join("");for(var i=a.length;i<3;i++)h+='<div class="card ph"><span class="lab">( coming soon )</span></div>';return h}
+function panel(p){return '<a class="slide" href="#project-'+p.id+'" aria-label="'+p.title+'" style="background:'+(p.g||"var(--dark)")+'"'+(p.cover?' data-cover="'+p.cover+'"':'')+'><div class="meta"><span>'+CATS[p.cat].t+'</span></div><h2>'+p.title+'</h2><span class="btn">launch project →</span></a>'}
+function panels(cat){var a=by(cat);return a.length?a.map(panel).join(""):'<div class="wrap"><div class="grid">'+list(cat)+'</div></div>'}
 function tile(href,key,g,n,h,sub){return '<a class="card cat" href="'+href+'" data-media="'+key+'" style="background:'+g+'"><span class="lab">( '+cnt(n)+' )</span><h2>'+h+'</h2><span class="lab">'+sub+'</span></a>'}
 
 var feat=PROJECTS.filter(function(p){return p.featured});
@@ -228,7 +236,7 @@ mqSpeed();addEventListener("resize",mqSpeed);addEventListener("load",mqSpeed);if
 var nM=by("motion").length,nF=by("frame-by-frame").length,nD=by("design").length;
 $("cats").innerHTML=tile("#animation","work-card-1","linear-gradient(135deg,#7a2cc0,#2a0050)",nM+nF,"animation","motion · frame by frame")+tile("#design","work-card-2","linear-gradient(135deg,#ff1a00,#4d0500)",nD,"design","graphic design");
 $("an").innerHTML=tile("#motion","animation-card-1","linear-gradient(135deg,#7a2cc0,#2a0050)",nM,"motion","animation")+tile("#frame-by-frame","animation-card-2","linear-gradient(135deg,#25449a,#00061f)",nF,"frame by frame","animation");
-$("mo").innerHTML=list("motion");$("fr").innerHTML=list("frame-by-frame");$("ds").innerHTML=list("design");
+$("mo").innerHTML=list("motion");$("fr").innerHTML=list("frame-by-frame");$("ds").innerHTML=panels("design");
 
 // Letras do título
 document.querySelectorAll(".ln").forEach(function(l){l.innerHTML=l.dataset.t.split("").map(function(c,i){return '<i style="--i:'+i+'">'+c+'</i>'}).join("")});
