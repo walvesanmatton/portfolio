@@ -47,7 +47,7 @@ a.pill:hover,.pill.on{background:var(--ink);color:var(--bg)}.pill[aria-disabled]
 .btn{align-self:flex-start;background:#fff;color:var(--ink);border-radius:99px;padding:12px 26px;font:500 18px var(--hf);text-transform:lowercase;transition:transform .3s,background .3s}
 .slide:hover .btn{transform:translateX(10px);background:var(--red);color:#fff}
 .mq{overflow:hidden;white-space:nowrap;border-block:1.5px solid var(--ink);padding:18px 0;background:var(--bg)}
-.mq div{display:inline-block;animation:mq 28s linear infinite;font:800 clamp(30px,5vw,72px)/1 var(--hf);text-transform:lowercase}
+.mq div{display:inline-block;animation:mq var(--d,120s) linear infinite;font:800 clamp(30px,5vw,72px)/1 var(--hf);text-transform:lowercase}
 .mq:hover div{animation-play-state:paused}@keyframes mq{to{transform:translateX(-50%)}}
 .sec{padding-block:clamp(40px,6vw,90px)}
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 28px}
@@ -91,7 +91,7 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 #dot.big{width:92px;height:92px;margin:-46px}#dot.sm{width:36px;height:36px;margin:-18px;opacity:.85}
 @media (max-width:860px){.about,.contact{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.row{grid-template-columns:1fr}header .soc{display:none}}
 @media (max-width:520px){.grid{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.ln i{transform:none}.rv,.slide h2{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.mq div{animation:mq var(--d,120s) linear infinite!important}.ln i{transform:none}.rv,.slide h2{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -210,8 +210,12 @@ function tile(href,key,g,n,h,sub){return '<a class="card cat" href="'+href+'" da
 
 var feat=PROJECTS.filter(function(p){return p.featured});
 $("panels").innerHTML=feat.map(function(p,i){var f=MEDIA["work-slide-"+(i+1)]||p.cover;return '<a class="slide" href="#project-'+p.id+'" aria-label="'+p.title+'" style="background:'+(p.g||"var(--dark)")+'"'+(f?' data-cover="'+f+'"':'')+'><div class="meta"><span>'+CATS[p.cat].t+'</span></div><h2>'+p.title+'</h2><span class="btn">launch project →</span></a>'}).join("");
-var word="2d animation ✺ direction ✺ visual development ✺ characters ✺ worlds ✺ stories that move ✺ ";
-$("mq").innerHTML="<div>"+Array(8).join(word)+"</div>";
+var word="2d animation ✺ direction ✺ visual development ✺ characters ✺ worlds ✺ stories that move ✺\u00a0";
+$("mq").innerHTML="<div>"+Array(5).join(word)+"</div>";
+// Velocidade da faixa: troque 40 (pixels por segundo). Menor = mais lenta.
+var MQ_SPEED=40;
+function mqSpeed(){var d=$("mq").firstChild;if(!d||!d.offsetWidth)return;d.style.setProperty("--d",(d.offsetWidth/2/MQ_SPEED).toFixed(1)+"s")}
+mqSpeed();addEventListener("resize",mqSpeed);addEventListener("load",mqSpeed);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(mqSpeed);
 var nM=by("motion").length,nF=by("frame-by-frame").length,nD=by("design").length;
 $("cats").innerHTML=tile("#animation","work-card-1","linear-gradient(135deg,#7a2cc0,#2a0050)",nM+nF,"animation","motion · frame by frame")+tile("#design","work-card-2","linear-gradient(135deg,#ff1a00,#4d0500)",nD,"design","graphic design");
 $("an").innerHTML=tile("#motion","animation-card-1","linear-gradient(135deg,#7a2cc0,#2a0050)",nM,"motion","animation")+tile("#frame-by-frame","animation-card-2","linear-gradient(135deg,#25449a,#00061f)",nF,"frame by frame","animation");
@@ -253,6 +257,7 @@ function route(){
   document.querySelectorAll(".nav a").forEach(function(a){a.classList.toggle("on",a.dataset.nav===((v==="about"||v==="contact")?v:"work"))});
   if(pj){renderProject(pj);document.title=pj.title+" — Walison Alves"}else document.title=TITLES[v]+" — Walison Alves";
   window.scrollTo(0,0);
+  if(v==="work")mqSpeed();
   var hero=$("hero");hero.classList.remove("play");void hero.offsetWidth;hero.classList.add("play");
 }
 addEventListener("hashchange",route);route();
