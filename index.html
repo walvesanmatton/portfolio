@@ -77,7 +77,7 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 .card .cap{position:absolute;left:18px;bottom:14px;z-index:2;color:#fff;font:800 clamp(22px,2.4vw,34px)/1 var(--hf);text-transform:lowercase}
 .card.p::after,.card.cat::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(transparent 50%,#0008)}
 .card.cat{display:flex;flex-direction:column;justify-content:flex-end;gap:10px;padding:clamp(20px,3vw,40px);color:#fff}
-.card.cat>*{position:relative;z-index:2}.card.cat h2{font-size:clamp(44px,7vw,110px);line-height:.9;letter-spacing:-.04em}
+.card.cat>*:not(video):not(img){position:relative;z-index:2}.card.cat h2{font-size:clamp(44px,7vw,110px);line-height:.9;letter-spacing:-.04em}
 .card.ph{display:flex;align-items:center;justify-content:center;background:transparent;border:1.5px dashed #14151a66}.card.ph .lab{opacity:.55}
 .back{display:inline-block;margin-bottom:22px;opacity:.7}.back:hover{opacity:1}
 .pt{font-size:clamp(44px,9vw,150px);margin-bottom:clamp(24px,3vw,44px)}
@@ -179,7 +179,10 @@ var LINKS={behance:"https://www.behance.net/walisonalves4",instagram:"https://ww
 // Seus vídeos e imagens de capa dos blocos (arquivos na raiz ou na pasta media do GitHub).
 // Chaves: "work-card-1" (bloco animation), "work-card-2" (bloco design), "animation-card-1" (motion), "animation-card-2" (frame by frame), "about-art-1" (imagem do About)
 // Exemplo: var MEDIA={"work-card-1":"media/animacao.mp4"};
-var MEDIA={};
+var MEDIA={
+  "animation-card-1":"sunrise.mp4",
+  "animation-card-2":"gurrenlagan.mp4"
+};
 
 // ===== SEUS PROJETOS =====
 // Para adicionar um projeto, copie um bloco { ... } e mude os campos:
