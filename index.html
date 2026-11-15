@@ -85,6 +85,7 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 .pms{display:grid;gap:28px;margin-top:clamp(32px,4vw,56px);max-width:1280px}.pms .card.ph{aspect-ratio:16/9}
 .pm{border-radius:22px;overflow:hidden;background:#000}.pm video,.pm img{display:block;width:100%;height:auto}
 .crs{margin-top:14px;display:grid;gap:4px}.cr{margin:0}
+.pms.tight{gap:0;max-width:none}.pms.tight .pm{border-radius:0;background:none}.pms.tight .pm:first-child{border-radius:22px 22px 0 0}.pms.tight .pm:last-child{border-radius:0 0 22px 22px}.pms.tight .pm img{width:calc(100% + 2px);max-width:none;margin:-1px}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
@@ -134,9 +135,9 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
     <div class="rv">
       <div class="lab">( about )</div>
       <h2 class="hi">hi, I’m walison.</h2>
-      <p class="lead">I’m Walison Alves, a Animator & Designer.<br>I bring ideas to life through animation, visual design and creative direction.</p>
-      <p class="lead soft" style="font-size:clamp(18px,1.6vw,24px)">My work combines movement, composition and visual storytelling to create engaging visual experiences — from the first concept to the final frame.</p>
-      <ul class="tags" style="margin:24px 0 0"><li>Animation</li><li>direction</li><li>visual development</li></ul>
+      <p class="lead">I’m Walison Alves, a Animator & Designer.<br>I turn ideas into expressive characters, colourful worlds and stories that move.</p>
+      <p class="lead soft" style="font-size:clamp(18px,1.6vw,24px)">My work brings together design, storytelling and animation — from the first sketch to the final frame.</p>
+      <ul class="tags" style="margin:24px 0 0"><li>2d animation</li><li>direction</li><li>visual development</li></ul>
       <a class="cta" style="padding:30px 0 0;font-size:clamp(28px,4vw,56px)" href="#contact">let’s make something move →</a>
     </div>
   </div>
@@ -192,13 +193,15 @@ var MEDIA={
 //  cover: vídeo ou imagem do cartão | g: cor de fundo enquanto o arquivo carrega
 //  text: parágrafos da explicação (aceita HTML) | link: {label:"",url:""} | media: vídeos/imagens da página do projeto
 //  credits: lista de ["Função","Nome"]
+//  tight: true = imagens coladas uma embaixo da outra, sem espaço (bom para projetos de design)
 var PROJECTS=[
   {id:"chikinz",cat:"motion",featured:true,title:"chikinz",cover:"chikinz.project.mp4",g:"linear-gradient(135deg,#7a2cc0,#2a0050)",text:[],link:{label:"",url:""},media:["chikinz.project.mp4"],credits:[]},
   {id:"spotify-ex",cat:"motion",featured:true,title:"spotify ex",cover:"spotify.ex.project.mp4",g:"linear-gradient(135deg,#ff1a00,#4d0500)",text:[],link:{label:"",url:""},media:["spotify.ex.project.mp4"],credits:[]},
   {id:"transborde",cat:"motion",featured:true,title:"transborde",cover:"transborde.project.mp4",g:"linear-gradient(135deg,#25449a,#00061f)",text:[],link:{label:"",url:""},media:["transborde.project.mp4"],credits:[]},
   {id:"gurrenlagan",cat:"frame-by-frame",featured:false,title:"gurrenlagan",cover:"gurrenlagan.mp4",g:"linear-gradient(135deg,#25449a,#00061f)",text:[],link:{label:"",url:""},media:["gurrenlagan.mp4"],credits:[]},
   {id:"plasticmachine",cat:"frame-by-frame",featured:false,title:"plasticmachine",cover:"plasticmachine.mp4",g:"linear-gradient(135deg,#1c8f7a,#062b26)",text:[],link:{label:"",url:""},media:["plasticmachine.mp4"],credits:[]},
-  {id:"firesword",cat:"frame-by-frame",featured:false,title:"firesword",cover:"firesword.mp4",g:"linear-gradient(135deg,#ff6a00,#4d1500)",text:[],link:{label:"",url:""},media:["firesword.mp4"],credits:[]}
+  {id:"firesword",cat:"frame-by-frame",featured:false,title:"firesword",cover:"firesword.mp4",g:"linear-gradient(135deg,#ff6a00,#4d1500)",text:[],link:{label:"",url:""},media:["firesword.mp4"],credits:[]},
+  {id:"id-visual-onside-pro",cat:"design",featured:false,title:"id visual - onside pro",cover:"1.onside.png",g:"linear-gradient(135deg,#d9e021,#1a1d12)",text:[],link:{label:"",url:""},tight:true,media:["1.onside.png","2.onside.png","3.onside.png","4.onside.png","5.onside.png","6.onside.png","7.onside.png","8.onside.png","9.onside.png","10.onside.png","11.onside.png","12.onside.png","13.onside.png","14.onside.png"],credits:[]}
 ];
 var CATS={motion:{t:"motion"},"frame-by-frame":{t:"frame by frame"},design:{t:"design"}};
 
@@ -249,7 +252,7 @@ function renderProject(p){
   var ph='<div class="card ph"><span class="lab">( media coming soon )</span></div>';
   var md=p.media&&p.media.length?p.media.map(function(){return '<div class="pm"></div>'}).join(""):ph+ph;
   var cr=p.credits&&p.credits.length?p.credits.map(function(r){return '<p class="cr"><b>'+r[0]+':</b> '+r[1]+'</p>'}).join(""):'<p class="lab soft">—</p>';
-  $("pj").innerHTML='<a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="pt">'+p.title+'</h1><div class="ptx rv">'+tx+lk+'</div><div class="pms">'+md+'</div><div class="lab" style="margin-top:56px">( credits )</div><div class="crs">'+cr+'</div>'+(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px)" href="#project-'+nx.id+'">next project →</a>':'');
+  $("pj").innerHTML='<a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="pt">'+p.title+'</h1><div class="ptx rv">'+tx+lk+'</div><div class="pms'+(p.tight?" tight":"")+'">'+md+'</div><div class="lab" style="margin-top:56px">( credits )</div><div class="crs">'+cr+'</div>'+(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px)" href="#project-'+nx.id+'">next project →</a>':'');
   var ms=$("pj").querySelectorAll(".pm");(p.media||[]).forEach(function(f,i){put(ms[i],f,true,p.title)});
   watch($("pj"));
 }
