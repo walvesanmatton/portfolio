@@ -74,6 +74,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}tex
 footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink);margin-top:clamp(40px,6vw,90px)}
 .f{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}.f b{display:block;font:800 clamp(28px,3.4vw,52px)/1 var(--hf);text-transform:lowercase}
 .fnav{display:flex;gap:24px;align-items:center;flex-wrap:wrap;font:500 18px var(--hf)}.copy{margin-top:28px}
+.card .cap{position:absolute;left:18px;bottom:14px;z-index:2;color:#fff;font:800 clamp(22px,2.4vw,34px)/1 var(--hf);text-transform:lowercase}
+.card.p::after,.card.cat::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(transparent 50%,#0008)}
+.card.cat{display:flex;flex-direction:column;justify-content:flex-end;gap:10px;padding:clamp(20px,3vw,40px);color:#fff}
+.card.cat>*{position:relative;z-index:2}.card.cat h2{font-size:clamp(44px,7vw,110px);line-height:.9;letter-spacing:-.04em}
+.card.ph{display:flex;align-items:center;justify-content:center;background:transparent;border:1.5px dashed #14151a66}.card.ph .lab{opacity:.55}
+.back{display:inline-block;margin-bottom:22px;opacity:.7}.back:hover{opacity:1}
+.pt{font-size:clamp(44px,9vw,150px);margin-bottom:clamp(24px,3vw,44px)}
+.ptx{max-width:62ch;display:grid;gap:14px;justify-items:start}.ptx .lead{margin:0}
+.pms{display:grid;gap:28px;margin-top:clamp(32px,4vw,56px);max-width:1280px}.pms .card.ph{aspect-ratio:16/9}
+.pm{border-radius:22px;overflow:hidden;background:#000}.pm video,.pm img{display:block;width:100%;height:auto}
+.crs{margin-top:14px;display:grid;gap:4px}.cr{margin:0}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
@@ -105,19 +116,21 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 <section data-view="work" id="panels" aria-label="Featured projects"></section>
 <section data-view="work" class="mq" aria-hidden="true" id="mq"></section>
 <section data-view="work" class="sec wrap">
-  <div class="lab rv">( more work )</div>
-  <div class="filters rv"><a class="pill on" href="#work">all work</a><a class="pill" href="#motion">motion</a><a class="pill" href="#frame-by-frame">frame by frame</a><span class="pill" aria-disabled="true" title="Coming soon">3d</span></div>
-  <div class="grid" id="more"></div>
+  <div class="lab rv">( explore )</div>
+  <div class="filters rv"><a class="pill" href="#animation">animation</a><a class="pill" href="#motion">motion</a><a class="pill" href="#frame-by-frame">frame by frame</a><a class="pill" href="#design">design</a></div>
+  <div class="grid g2" id="cats"></div>
   <a class="cta rv" href="#contact">let’s make something move →</a>
 </section>
 
-<section data-view="motion" class="wrap"><div class="ttl"><h1>motion</h1></div><div class="big" id="mo"></div></section>
-<section data-view="frame-by-frame" class="wrap"><div class="ttl"><h1>frame by frame</h1></div><div class="grid g2" id="fr"></div></section>
-<section data-view="projects" class="wrap"><div class="big" id="pr" style="padding-top:clamp(100px,12vw,150px)"></div></section>
+<section data-view="animation" class="wrap"><div class="ttl"><a class="lab back" href="#work">← work</a><h1>animation</h1></div><div class="grid g2" id="an"></div></section>
+<section data-view="motion" class="wrap"><div class="ttl"><a class="lab back" href="#animation">← animation</a><h1>motion</h1></div><div class="grid" id="mo"></div></section>
+<section data-view="frame-by-frame" class="wrap"><div class="ttl"><a class="lab back" href="#animation">← animation</a><h1>frame by frame</h1></div><div class="grid" id="fr"></div></section>
+<section data-view="design" class="wrap"><div class="ttl"><a class="lab back" href="#work">← work</a><h1>design</h1></div><div class="grid" id="ds"></div></section>
+<section data-view="project" class="wrap"><article id="pj" style="padding-top:clamp(110px,14vw,170px)"></article></section>
 
 <section data-view="about" class="wrap">
   <div class="about">
-    <div class="art rv" role="img" aria-label="Illustrated portrait artwork"></div>
+    <div class="art rv" data-media="about-art-1" role="img" aria-label="Illustrated portrait artwork"></div>
     <div class="rv">
       <div class="lab">( about )</div>
       <h2 class="hi">hi, I’m walison.</h2>
@@ -163,54 +176,82 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 <script>
 // Preencha com seus links e e-mail reais:
 var LINKS={behance:"https://www.behance.net/walisonalves4",instagram:"https://www.instagram.com/walison.an/",email:"walves.an@gmail.com"};
-// Seus vídeos, imagens e GIFs (arquivos na pasta media do GitHub).
-// Exemplo: var MEDIA={"work-slide-1":"media/personagem.mp4","work-card-2":"media/cidade.mp4"};
-var MEDIA={
-  "work-slide-1":"chikinz.project.mp4",
-  "work-slide-2":"spotify.ex.project.mp4",
-  "work-slide-3":"transborde.project.mp4"
-};
-// Projetos em destaque (nome, categoria e cor de fundo; troque pelos seus):
-var P=[{t:"chikinz",k:"motion",g:"linear-gradient(135deg,#7a2cc0,#2a0050)"},{t:"spotify ex",k:"motion",g:"linear-gradient(135deg,#ff1a00,#4d0500)"},{t:"transborde",k:"motion",g:"linear-gradient(135deg,#25449a,#00061f)"}];
+// Seus vídeos e imagens de capa dos blocos (arquivos na raiz ou na pasta media do GitHub).
+// Chaves: "work-card-1" (bloco animation), "work-card-2" (bloco design), "animation-card-1" (motion), "animation-card-2" (frame by frame), "about-art-1" (imagem do About)
+// Exemplo: var MEDIA={"work-card-1":"media/animacao.mp4"};
+var MEDIA={};
+
+// ===== SEUS PROJETOS =====
+// Para adicionar um projeto, copie um bloco { ... } e mude os campos:
+//  id: nome curto, só letras minúsculas, números e hífen (vira o endereço #project-ID)
+//  cat: "motion", "frame-by-frame" ou "design"
+//  featured: true = aparece em destaque na página inicial
+//  cover: vídeo ou imagem do cartão | g: cor de fundo enquanto o arquivo carrega
+//  text: parágrafos da explicação (aceita HTML) | link: {label:"",url:""} | media: vídeos/imagens da página do projeto
+//  credits: lista de ["Função","Nome"]
+var PROJECTS=[
+  {id:"chikinz",cat:"motion",featured:true,title:"chikinz",cover:"chikinz.project.mp4",g:"linear-gradient(135deg,#7a2cc0,#2a0050)",text:[],link:{label:"",url:""},media:["chikinz.project.mp4"],credits:[]},
+  {id:"spotify-ex",cat:"motion",featured:true,title:"spotify ex",cover:"spotify.ex.project.mp4",g:"linear-gradient(135deg,#ff1a00,#4d0500)",text:[],link:{label:"",url:""},media:["spotify.ex.project.mp4"],credits:[]},
+  {id:"transborde",cat:"motion",featured:true,title:"transborde",cover:"transborde.project.mp4",g:"linear-gradient(135deg,#25449a,#00061f)",text:[],link:{label:"",url:""},media:["transborde.project.mp4"],credits:[]}
+];
+var CATS={motion:{t:"motion"},"frame-by-frame":{t:"frame by frame"},design:{t:"design"}};
 
 var ICONS={behance:"Bē",instagram:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6"/></svg>',email:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>'};
 var NAMES={behance:"Behance",instagram:"Instagram",email:"E-mail"};
 document.querySelectorAll(".soc").forEach(function(b){b.innerHTML=Object.keys(ICONS).map(function(k){var u=LINKS[k];if(k==="email"&&u)u="mailto:"+u;return u?'<a href="'+u+'" aria-label="'+NAMES[k]+'" target="_blank" rel="noopener">'+ICONS[k]+'</a>':'<span aria-label="'+NAMES[k]+'">'+ICONS[k]+'</span>'}).join("")});
 
-// Constrói os blocos
 var $=function(id){return document.getElementById(id)};
-$("panels").innerHTML=P.map(function(p,i){return '<a class="slide" href="#projects" aria-label="'+p.t+'" style="background:'+p.g+'"><div class="meta"><span>'+p.k+'</span></div><h2>'+p.t+'</h2><span class="btn">launch project →</span></a>'}).join("");
+function put(el,f,ctl,alt){var v=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(v?"video":"img");m.src=f;if(v){m.preload="metadata";m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","");m.setAttribute("playsinline","");if(ctl)m.controls=true}else m.alt=alt||"";el.insertBefore(m,el.firstChild)}
+function by(cat){return PROJECTS.filter(function(p){return p.cat===cat})}
+function cnt(n){return n?n+(n===1?" project":" projects"):"coming soon"}
+function pcard(p){return '<a class="card p" href="#project-'+p.id+'" aria-label="'+p.title+'"'+(p.cover?' data-cover="'+p.cover+'"':'')+(p.g?' style="background:'+p.g+'"':'')+'><span class="cap">'+p.title+'</span></a>'}
+function list(cat){var a=by(cat),h=a.map(pcard).join("");for(var i=a.length;i<3;i++)h+='<div class="card ph"><span class="lab">( coming soon )</span></div>';return h}
+function tile(href,key,g,n,h,sub){return '<a class="card cat" href="'+href+'" data-media="'+key+'" style="background:'+g+'"><span class="lab">( '+cnt(n)+' )</span><h2>'+h+'</h2><span class="lab">'+sub+'</span></a>'}
+
+var feat=PROJECTS.filter(function(p){return p.featured});
+$("panels").innerHTML=feat.map(function(p,i){var f=MEDIA["work-slide-"+(i+1)]||p.cover;return '<a class="slide" href="#project-'+p.id+'" aria-label="'+p.title+'" style="background:'+(p.g||"var(--dark)")+'"'+(f?' data-cover="'+f+'"':'')+'><div class="meta"><span>'+CATS[p.cat].t+'</span></div><h2>'+p.title+'</h2><span class="btn">launch project →</span></a>'}).join("");
 var word="2d animation ✺ direction ✺ visual development ✺ characters ✺ worlds ✺ stories that move ✺ ";
 $("mq").innerHTML="<div>"+Array(8).join(word)+"</div>";
-function cards(n,links,cls){var h="";for(var i=0;i<n;i++){var g=P[i]&&links?' style="background:'+P[i].g+'"':"";h+=(links&&i<3?'<a class="card'+(i===0&&cls?" sq":"")+'" href="'+links+'"'+g+'></a>':'<div class="card"></div>')}return h}
-$("more").innerHTML=cards(9,"#projects");
-$("mo").innerHTML='<a class="card" href="#work" style="background:#000"></a><a class="card" href="#work" style="background:#ff1a00"></a><a class="card" href="#work" style="background:linear-gradient(150deg,#52004f,#2a0050)"></a>';
-$("fr").innerHTML=cards(6,"#projects");
-$("pr").innerHTML=cards(3,"#work",1);
+var nM=by("motion").length,nF=by("frame-by-frame").length,nD=by("design").length;
+$("cats").innerHTML=tile("#animation","work-card-1","linear-gradient(135deg,#7a2cc0,#2a0050)",nM+nF,"animation","motion · frame by frame")+tile("#design","work-card-2","linear-gradient(135deg,#ff1a00,#4d0500)",nD,"design","graphic design");
+$("an").innerHTML=tile("#motion","animation-card-1","linear-gradient(135deg,#7a2cc0,#2a0050)",nM,"motion","animation")+tile("#frame-by-frame","animation-card-2","linear-gradient(135deg,#25449a,#00061f)",nF,"frame by frame","animation");
+$("mo").innerHTML=list("motion");$("fr").innerHTML=list("frame-by-frame");$("ds").innerHTML=list("design");
 
 // Letras do título
 document.querySelectorAll(".ln").forEach(function(l){l.innerHTML=l.dataset.t.split("").map(function(c,i){return '<i style="--i:'+i+'">'+c+'</i>'}).join("")});
 
-// Mídia automática (mesmos nomes de antes: work-slide-1, work-card-1, motion-card-1, about-art-1...)
-var cnt={};
-document.querySelectorAll("main .card,main .slide,main .art").forEach(function(el){
-  var v=el.closest("[data-view]").dataset.view,t=el.classList.contains("slide")?"slide":el.classList.contains("art")?"art":"card",k=v+"-"+t,n=cnt[k]=(cnt[k]||0)+1;
-  el.dataset.media=(v==="projects"?"work":v)+"-"+t+"-"+n;
-  var f=MEDIA[el.dataset.media];
-  if(f){var vid=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(vid?"video":"img");m.src=f;
-    if(vid){m.preload="metadata";m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","");m.setAttribute("playsinline","")}else{m.alt=""}
-    el.insertBefore(m,el.firstChild)}
-});
+function dress(r){
+  r.querySelectorAll("[data-cover]").forEach(function(el){if(!el.querySelector("video,img"))put(el,el.dataset.cover,false,"")});
+  r.querySelectorAll("[data-media]").forEach(function(el){var f=MEDIA[el.dataset.media];if(f&&!el.querySelector("video,img"))put(el,f,false,"")});
+}
+dress(document);
+
+// Observador: animações de entrada e play/pause dos vídeos visíveis
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("in",e.isIntersecting);var v=e.target.querySelector("video");if(v){if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()}})},{threshold:.25});
+function watch(r){r.querySelectorAll(".rv,.slide,.card,.art,.pm").forEach(function(e){io.observe(e)})}
+watch(document);
+
+// Página de cada projeto
+function renderProject(p){
+  var same=by(p.cat),nx=same[(same.indexOf(p)+1)%same.length];
+  var tx=p.text&&p.text.length?p.text.map(function(t){return '<p class="lead">'+t+'</p>'}).join(""):'<p class="lab soft">( description coming soon )</p>';
+  var lk=p.link&&p.link.url?'<a class="pill" href="'+p.link.url+'" target="_blank" rel="noopener">'+(p.link.label||"read more")+' ↗</a>':"";
+  var ph='<div class="card ph"><span class="lab">( media coming soon )</span></div>';
+  var md=p.media&&p.media.length?p.media.map(function(){return '<div class="pm"></div>'}).join(""):ph+ph;
+  var cr=p.credits&&p.credits.length?p.credits.map(function(r){return '<p class="cr"><b>'+r[0]+':</b> '+r[1]+'</p>'}).join(""):'<p class="lab soft">—</p>';
+  $("pj").innerHTML='<a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="pt">'+p.title+'</h1><div class="ptx rv">'+tx+lk+'</div><div class="pms">'+md+'</div><div class="lab" style="margin-top:56px">( credits )</div><div class="crs">'+cr+'</div>'+(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px)" href="#project-'+nx.id+'">next project →</a>':'');
+  var ms=$("pj").querySelectorAll(".pm");(p.media||[]).forEach(function(f,i){put(ms[i],f,true,p.title)});
+  watch($("pj"));
+}
 
 // Rotas
-var VIEWS=["work","projects","motion","frame-by-frame","about","contact"],TITLES={work:"Work",projects:"Projects",motion:"Motion","frame-by-frame":"Frame by frame",about:"About",contact:"Contact"};
-var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("in",e.isIntersecting);var v=e.target.querySelector("video");if(v){if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()}})},{threshold:.25});
-document.querySelectorAll(".rv,.slide,.card,.art").forEach(function(e){io.observe(e)});
+var HASHES=["work","animation","motion","frame-by-frame","design","about","contact"],TITLES={work:"Work",animation:"Animation",motion:"Motion","frame-by-frame":"Frame by frame",design:"Design",about:"About",contact:"Contact"};
 function route(){
-  var h=location.hash.slice(1),v=VIEWS.indexOf(h)>-1?h:"work";
+  var h=location.hash.slice(1),v,pj;
+  if(h.indexOf("project-")===0){pj=PROJECTS.filter(function(p){return "project-"+p.id===h})[0];v=pj?"project":"work"}else v=HASHES.indexOf(h)>-1?h:"work";
   document.querySelectorAll("[data-view]").forEach(function(s){s.hidden=s.dataset.view!==v});
   document.querySelectorAll(".nav a").forEach(function(a){a.classList.toggle("on",a.dataset.nav===((v==="about"||v==="contact")?v:"work"))});
-  document.title=TITLES[v]+" — Walison Alves";
+  if(pj){renderProject(pj);document.title=pj.title+" — Walison Alves"}else document.title=TITLES[v]+" — Walison Alves";
   window.scrollTo(0,0);
   var hero=$("hero");hero.classList.remove("play");void hero.offsetWidth;hero.classList.add("play");
 }
