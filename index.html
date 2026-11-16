@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=DM+Sans:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&text=%E9%B6%8F&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3eee4;--ink:#14151a;--navy:#003459;--red:#ff1a00;--dark:#191919;--card:#e2dccf;--hf:"Bricolage Grotesque",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -90,6 +91,26 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 .spin{position:absolute;right:clamp(20px,4vw,64px);top:clamp(84px,8vw,140px);width:clamp(64px,9vw,140px);aspect-ratio:1;pointer-events:none;animation:spin var(--spin,24s) linear infinite}
 .spin svg{display:block;width:100%;height:100%}
 @keyframes spin{to{transform:rotate(360deg)}}
+body.case{background:var(--cbg);color:var(--cfg)}
+body.case header{mix-blend-mode:normal;color:var(--cfg);background:var(--cbg);padding-bottom:14px}
+body.case footer{border-top-color:currentColor}body.case #dot{background:#fff}body.case .cta:hover{color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.case-p{padding-top:calc(78px + env(safe-area-inset-top,0px))}.case-p .back{margin:0 clamp(20px,4vw,64px) 14px;display:inline-block}
+.case-p .pm{background:none;border-radius:0}.case-p .pm img,.case-p .pm video{display:block;width:100%;height:auto}
+.cabout{position:relative;overflow:hidden;text-align:center;padding:clamp(36px,5vw,80px) clamp(20px,4vw,64px) clamp(56px,8vw,120px)}
+.deco{position:absolute;top:clamp(10px,2vw,40px);font:900 clamp(70px,10.5vw,180px)/1 "Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;white-space:nowrap;letter-spacing:-.04em;pointer-events:none}.deco.l{left:-3vw}.deco.r{right:-3vw}
+.cabout h2,.ctit h2{font-size:clamp(32px,6vw,96px);line-height:.95;letter-spacing:-.02em;text-transform:uppercase;position:relative}
+.cabout h2 span{display:block;font-size:.5em;letter-spacing:0;margin-top:.15em}
+.tx{position:relative;max-width:68ch;margin:clamp(22px,3vw,44px) auto 0;display:grid;gap:14px;font-size:clamp(15px,1.25vw,19px)}.tx p{margin:0}
+.tx hr{width:min(42%,320px);border:0;border-top:1.5px solid var(--cfg);margin:clamp(8px,1.5vw,20px) auto}
+.cgrid{display:grid;grid-template-columns:1fr 1fr}
+.ccred{text-align:center;padding:clamp(44px,6vw,90px) 0 clamp(56px,8vw,110px)}
+.ctit{display:flex;align-items:center;gap:clamp(16px,3vw,44px);margin-bottom:clamp(36px,5vw,72px)}.ctit i{flex:1;height:clamp(12px,2vw,28px);background:currentColor}
+.cr2{margin-bottom:clamp(22px,3vw,44px)}.cr2 small{display:block;font:800 clamp(12px,1.3vw,20px) var(--hf);text-transform:uppercase;letter-spacing:.04em}
+.cr2 b{display:block;font:800 clamp(24px,3.4vw,54px)/1.1 var(--hf);text-transform:uppercase;letter-spacing:-.01em}
+.cdiv{width:min(36%,280px);border-top:2px solid currentColor;margin:clamp(28px,4vw,56px) auto clamp(20px,3vw,40px)}
+.thx{margin:0;font:800 clamp(14px,1.6vw,24px) var(--hf);text-transform:uppercase}
+@media (max-width:700px){.deco{display:none}.cgrid{grid-template-columns:1fr}}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
@@ -134,6 +155,7 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 <section data-view="design" class="wrap"><div class="ttl"><a class="lab back" href="#work">← work</a><h1>design</h1></div></section>
 <section data-view="design" id="ds" aria-label="Design projects"></section>
 <section data-view="project" class="wrap"><article id="pj" style="padding-top:clamp(110px,14vw,170px)"></article></section>
+<section data-view="project" id="pjc" hidden></section>
 
 <section data-view="about" class="wrap">
   <div class="about">
@@ -202,8 +224,9 @@ var MEDIA={
 //  text: parágrafos da explicação (aceita HTML) | link: {label:"",url:""} | media: vídeos/imagens da página do projeto
 //  credits: lista de ["Função","Nome"]
 //  tight: true = imagens coladas uma embaixo da outra, sem espaço (bom para projetos de design)
+//  página especial (ex.: chikinz): theme:{bg,fg}, deco, aboutTitle, text (use "---" para uma linha), shots:{strip,items}, credits, thanks
 var PROJECTS=[
-  {id:"chikinz",cat:"motion",featured:true,title:"chikinz",cover:"chikinz.project.mp4",g:"linear-gradient(135deg,#7a2cc0,#2a0050)",text:[],link:{label:"",url:""},media:["chikinz.project.mp4"],credits:[]},
+  {id:"chikinz",cat:"motion",featured:true,title:"chikinz",cover:"chikinz.project.mp4",g:"linear-gradient(135deg,#7a2cc0,#2a0050)",theme:{bg:"#ff1800",fg:"#fff"},deco:"鶏鶏",aboutTitle:["sobre o projeto","about the project"],text:["<b>PT</b> - Este é um projeto autoral criado para desenvolver uma animação 2D divertida para a <b>CHIKINZ</b>, uma marca fictícia de fast food de frango frito. O objetivo foi praticar técnicas de motion design aplicadas ao branding, utilizando elementos visuais chamativos e movimentos dinâmicos para simular um vídeo promocional.","Neste vídeo, explorei composições descontraídas, tipografia marcante e animações simples, mas impactantes, que comunicam a personalidade vibrante e divertida da marca. O estilo flat em 2D foi escolhido para reforçar uma estética limpa, moderna e acessível, ideal para campanhas digitais.","---","<b>ENG</b> - This is a personal project created to develop a fun 2D animation for <b>CHIKINZ</b>, a fictional fried chicken fast food brand. The goal was to practice motion design techniques applied to branding, using catchy visuals and dynamic movements to simulate a promotional video.","In this video, I explored playful compositions, bold typography, and simple yet striking animations that communicate the brand’s lively and fun personality. The chosen 2D flat style helps reinforce a clean, modern, and accessible aesthetic, fitting for digital campaigns."],link:{label:"",url:""},media:["chikinz.project.mp4"],shots:{strip:"chikinz.assets.project.00.gif",items:["chikinz.assets.project.01.gif","chikinz.assets.project.02.gif","chikinz.assets.project.03.gif","chikinz.assets.project.04.gif"]},credits:[["design & composition","walison alves"],["animation","walison alves"]],thanks:"thank you!"},
   {id:"spotify-ex",cat:"motion",featured:true,title:"spotify exp",cover:"spotify.ex.project.mp4",g:"linear-gradient(135deg,#ff1a00,#4d0500)",text:[],link:{label:"",url:""},media:["spotify.ex.project.mp4"],credits:[]},
   {id:"transborde",cat:"motion",featured:true,title:"transborde",cover:"transborde.project.mp4",g:"linear-gradient(135deg,#25449a,#00061f)",text:[],link:{label:"",url:""},media:["transborde.project.mp4"],credits:[]},
   {id:"sunrise",cat:"motion",featured:false,title:"sunrise",cover:"sunrise.mp4",g:"linear-gradient(135deg,#ff6a00,#4d0500)",text:[],link:{label:"",url:""},media:["sunrise.mp4"],credits:[]},
@@ -268,6 +291,24 @@ function renderProject(p){
   watch($("pj"));
 }
 
+// Página especial de projeto (tema colorido, seção "about", shots em grade e créditos)
+function renderCase(p){
+  var same=by(p.cat),nx=same[(same.indexOf(p)+1)%same.length],t=p.aboutTitle||["about the project",""],sh=p.shots||{items:[]};
+  var vids=(p.media||[]).map(function(){return '<div class="pm cv"></div>'}).join("");
+  var tx=(p.text||[]).map(function(x){return x==="---"?'<hr>':'<p>'+x+'</p>'}).join("");
+  var cr=(p.credits||[]).map(function(r){return '<div class="cr2"><small>'+r[0]+'</small><b>'+r[1]+'</b></div>'}).join("");
+  $("pjc").innerHTML='<div class="case-p"><a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="sr">'+p.title+'</h1>'+vids
+    +'<section class="cabout">'+(p.deco?'<span class="deco l" aria-hidden="true">'+p.deco+'</span><span class="deco r" aria-hidden="true">'+p.deco+'</span>':'')+'<h2>'+t[0]+(t[1]?'<span>'+t[1]+'</span>':'')+'</h2><div class="tx">'+tx+'</div></section>'
+    +(sh.strip?'<div class="pm cstrip"></div>':'')+'<div class="cgrid">'+(sh.items||[]).map(function(){return '<div class="pm"></div>'}).join("")+'</div>'
+    +'<section class="ccred"><div class="ctit"><i></i><h2>credits</h2><i></i></div>'+cr+(p.thanks?'<div class="cdiv"></div><p class="thx">'+p.thanks+'</p>':'')+'</section>'
+    +(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px);padding-left:clamp(20px,4vw,64px)" href="#project-'+nx.id+'">next project →</a>':'')+'</div>';
+  var r=$("pjc"),vs=r.querySelectorAll(".cv"),gs=r.querySelectorAll(".cgrid .pm");
+  (p.media||[]).forEach(function(f,i){put(vs[i],f,true,p.title)});
+  if(sh.strip)put(r.querySelector(".cstrip"),sh.strip,false,"");
+  (sh.items||[]).forEach(function(f,i){put(gs[i],f,false,"")});
+  watch(r);
+}
+
 // Rotas
 var HASHES=["work","animation","motion","frame-by-frame","design","about","contact"],TITLES={work:"Work",animation:"Animation",motion:"Motion","frame-by-frame":"Frame by frame",design:"Design",about:"About",contact:"Contact"};
 function route(){
@@ -275,7 +316,10 @@ function route(){
   if(h.indexOf("project-")===0){pj=PROJECTS.filter(function(p){return "project-"+p.id===h})[0];v=pj?"project":"work"}else v=HASHES.indexOf(h)>-1?h:"work";
   document.querySelectorAll("[data-view]").forEach(function(s){s.hidden=s.dataset.view!==v});
   document.querySelectorAll(".nav a").forEach(function(a){a.classList.toggle("on",a.dataset.nav===((v==="about"||v==="contact")?v:"work"))});
-  if(pj){renderProject(pj);document.title=pj.title+" — Walison Alves"}else document.title=TITLES[v]+" — Walison Alves";
+  var th=pj&&pj.theme;
+  document.body.classList.toggle("case",!!th);
+  if(th){document.body.style.setProperty("--cbg",th.bg);document.body.style.setProperty("--cfg",th.fg||"#fff")}
+  if(pj){if(th){$("pj").innerHTML="";$("pj").parentNode.hidden=true;$("pjc").hidden=false;renderCase(pj)}else{$("pjc").innerHTML="";$("pjc").hidden=true;renderProject(pj)}document.title=pj.title+" — Walison Alves"}else document.title=TITLES[v]+" — Walison Alves";
   window.scrollTo(0,0);
   if(v==="work")mqSpeed();
   var hero=$("hero");hero.classList.remove("play");void hero.offsetWidth;hero.classList.add("play");
