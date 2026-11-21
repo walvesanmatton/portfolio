@@ -272,7 +272,7 @@ function tile(href,key,g,n,h,sub){return '<a class="card cat" href="'+href+'" da
 
 var feat=PROJECTS.filter(function(p){return p.featured});
 $("panels").innerHTML=feat.map(function(p,i){var f=MEDIA["work-slide-"+(i+1)]||p.cover;return '<a class="slide" href="#project-'+p.id+'" aria-label="'+p.title+'" style="background:'+(p.g||"var(--dark)")+'"'+(f?' data-cover="'+f+'"':'')+'><div class="meta"><span>'+CATS[p.cat].t+'</span></div><h2>'+p.title+'</h2><span class="btn">launch project →</span></a>'}).join("");
-var word="2d animation ✺ direction ✺ visual development ✺ worlds ✺ stories that move ✺\u00a0";
+var word="Animation ✺ design ✺ visual development ✺ worlds ✺ stories that move ✺\u00a0";
 $("mq").innerHTML="<div>"+Array(5).join(word)+"</div>";
 // Velocidade da faixa: troque 40 (pixels por segundo). Menor = mais lenta.
 var MQ_SPEED=40;
