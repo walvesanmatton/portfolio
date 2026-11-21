@@ -92,9 +92,6 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 .spin{position:absolute;right:clamp(20px,4vw,64px);top:clamp(84px,8vw,140px);width:clamp(64px,9vw,140px);aspect-ratio:1;pointer-events:none;animation:spin var(--spin,24s) linear infinite}
 .spin svg{display:block;width:100%;height:100%}
 @keyframes spin{to{transform:rotate(360deg)}}
-body.case{background:var(--cbg);color:var(--cfg)}
-body.case header{mix-blend-mode:normal;color:var(--cfg);background:var(--cbg);padding-bottom:14px}
-body.case footer{border-top-color:currentColor}body.case #dot{background:#fff}body.case .cta:hover{color:var(--ink)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .case-p{padding-top:calc(78px + env(safe-area-inset-top,0px))}.case-p .back{margin:0 clamp(20px,4vw,64px) 14px;display:inline-block}
 .case-p .pm{background:none;border-radius:0}.case-p .pm img,.case-p .pm video{display:block;width:100%;height:auto}
@@ -114,7 +111,7 @@ body.case footer{border-top-color:currentColor}body.case #dot{background:#fff}bo
 @media (max-width:700px){.deco{display:none}.cgrid{grid-template-columns:1fr}}
 .case-p .pm.ar{aspect-ratio:var(--ar);overflow:hidden}.case-p .pm.ar img,.case-p .pm.ar video{height:100%;object-fit:cover}
 .tx .lb{text-align:left;font-weight:800;margin:0}
-.case-p .stk{margin-inline:clamp(20px,4vw,64px);border-radius:22px;overflow:hidden}
+.case-p .stk{margin-inline:clamp(20px,4vw,64px);border-radius:22px;overflow:hidden}.case-p .stk .cabout,.case-p .stk .ccred{background:var(--cbg);color:var(--cfg)}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
@@ -320,7 +317,7 @@ function renderBlocks(p){
   var html="",open=false;
   (p.blocks||[]).forEach(function(b){
     var h;
-    if(b.text){if(open){html+='</div>';open=false}
+    if(b.text){if(!open){html+='<div class="stk">';open=true}
       html+='<section class="cabout"><div class="tx">'+(p.text||[]).map(function(x){return x==="---"?'<hr>':x.charAt(0)==="#"?'<p class="lb">'+x.slice(1)+'</p>':'<p>'+x+'</p>'}).join("")+'</div></section>';return}
     if(b.video)h=cell(b.video,b.ar||1.7778,1);
     else if(b.img)h=cell(b.img,b.ar||1.7778,0);
@@ -340,10 +337,10 @@ function renderCase(p){if(p.blocks)return renderBlocks(p);
   var vids=(p.media||[]).map(function(){return '<div class="pm cv"></div>'}).join("");
   var tx=(p.text||[]).map(function(x){return x==="---"?'<hr>':'<p>'+x+'</p>'}).join("");
   var cr=(p.credits||[]).map(function(r){return '<div class="cr2"><small>'+r[0]+'</small><b>'+r[1]+'</b></div>'}).join("");
-  $("pjc").innerHTML='<div class="case-p"><a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="sr">'+p.title+'</h1>'+(vids?'<div class="stk">'+vids+'</div>':'')
+  $("pjc").innerHTML='<div class="case-p"><a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="sr">'+p.title+'</h1>'+'<div class="stk">'+vids
     +'<section class="cabout">'+(p.deco?'<span class="deco l" aria-hidden="true">'+p.deco+'</span><span class="deco r" aria-hidden="true">'+p.deco+'</span>':'')+'<h2>'+t[0]+(t[1]?'<span>'+t[1]+'</span>':'')+'</h2><div class="tx">'+tx+'</div></section>'
-    +'<div class="stk">'+(sh.strip?'<div class="pm cstrip"></div>':'')+'<div class="cgrid">'+(sh.items||[]).map(function(){return '<div class="pm"></div>'}).join("")+'</div></div>'
-    +'<section class="ccred"><div class="ctit"><i></i><h2>credits</h2><i></i></div>'+cr+(p.thanks?'<div class="cdiv"></div><p class="thx">'+p.thanks+'</p>':'')+'</section>'
+    +(sh.strip?'<div class="pm cstrip"></div>':'')+'<div class="cgrid">'+(sh.items||[]).map(function(){return '<div class="pm"></div>'}).join("")+'</div>'
+    +'<section class="ccred"><div class="ctit"><i></i><h2>credits</h2><i></i></div>'+cr+(p.thanks?'<div class="cdiv"></div><p class="thx">'+p.thanks+'</p>':'')+'</section></div>'
     +(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px);padding-left:clamp(20px,4vw,64px)" href="#project-'+nx.id+'">next project →</a>':'')+'</div>';
   var r=$("pjc"),vs=r.querySelectorAll(".cv"),gs=r.querySelectorAll(".cgrid .pm");
   (p.media||[]).forEach(function(f,i){put(vs[i],f,true,p.title)});
