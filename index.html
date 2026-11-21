@@ -114,6 +114,7 @@ body.case footer{border-top-color:currentColor}body.case #dot{background:#fff}bo
 @media (max-width:700px){.deco{display:none}.cgrid{grid-template-columns:1fr}}
 .case-p .pm.ar{aspect-ratio:var(--ar);overflow:hidden}.case-p .pm.ar img,.case-p .pm.ar video{height:100%;object-fit:cover}
 .tx .lb{text-align:left;font-weight:800;margin:0}
+.case-p .stk{margin-inline:clamp(20px,4vw,64px);border-radius:22px;overflow:hidden}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
@@ -316,13 +317,19 @@ function renderProject(p){
 function renderBlocks(p){
   var same=by(p.cat),nx=same[(same.indexOf(p)+1)%same.length],files=[];
   function cell(f,ar,v){files.push([f,v]);return '<div class="pm ar lz'+(v?" cv":"")+'" style="--ar:'+ar+'"></div>'}
-  var html=(p.blocks||[]).map(function(b){
-    if(b.video)return cell(b.video,b.ar||1.7778,1);
-    if(b.img)return cell(b.img,b.ar||1.7778,0);
-    if(b.row)return '<div class="cgrid">'+b.row.map(function(f){return cell(f,b.ar||1.7778,0)}).join("")+'</div>';
-    if(b.text)return '<section class="cabout"><div class="tx">'+(p.text||[]).map(function(x){return x==="---"?'<hr>':x.charAt(0)==="#"?'<p class="lb">'+x.slice(1)+'</p>':'<p>'+x+'</p>'}).join("")+'</div></section>';
-    return "";
-  }).join("");
+  var html="",open=false;
+  (p.blocks||[]).forEach(function(b){
+    var h;
+    if(b.text){if(open){html+='</div>';open=false}
+      html+='<section class="cabout"><div class="tx">'+(p.text||[]).map(function(x){return x==="---"?'<hr>':x.charAt(0)==="#"?'<p class="lb">'+x.slice(1)+'</p>':'<p>'+x+'</p>'}).join("")+'</div></section>';return}
+    if(b.video)h=cell(b.video,b.ar||1.7778,1);
+    else if(b.img)h=cell(b.img,b.ar||1.7778,0);
+    else if(b.row)h='<div class="cgrid">'+b.row.map(function(f){return cell(f,b.ar||1.7778,0)}).join("")+'</div>';
+    else return;
+    if(!open){html+='<div class="stk">';open=true}
+    html+=h;
+  });
+  if(open)html+='</div>';
   $("pjc").innerHTML='<div class="case-p"><a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="sr">'+p.title+'</h1>'+html+(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px);padding-left:clamp(20px,4vw,64px)" href="#project-'+nx.id+'">next project →</a>':'')+'</div>';
   var els=$("pjc").querySelectorAll(".pm");files.forEach(function(x,i){put(els[i],x[0],x[1],p.title)});
   watch($("pjc"));
@@ -333,9 +340,9 @@ function renderCase(p){if(p.blocks)return renderBlocks(p);
   var vids=(p.media||[]).map(function(){return '<div class="pm cv"></div>'}).join("");
   var tx=(p.text||[]).map(function(x){return x==="---"?'<hr>':'<p>'+x+'</p>'}).join("");
   var cr=(p.credits||[]).map(function(r){return '<div class="cr2"><small>'+r[0]+'</small><b>'+r[1]+'</b></div>'}).join("");
-  $("pjc").innerHTML='<div class="case-p"><a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="sr">'+p.title+'</h1>'+vids
+  $("pjc").innerHTML='<div class="case-p"><a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="sr">'+p.title+'</h1>'+(vids?'<div class="stk">'+vids+'</div>':'')
     +'<section class="cabout">'+(p.deco?'<span class="deco l" aria-hidden="true">'+p.deco+'</span><span class="deco r" aria-hidden="true">'+p.deco+'</span>':'')+'<h2>'+t[0]+(t[1]?'<span>'+t[1]+'</span>':'')+'</h2><div class="tx">'+tx+'</div></section>'
-    +(sh.strip?'<div class="pm cstrip"></div>':'')+'<div class="cgrid">'+(sh.items||[]).map(function(){return '<div class="pm"></div>'}).join("")+'</div>'
+    +'<div class="stk">'+(sh.strip?'<div class="pm cstrip"></div>':'')+'<div class="cgrid">'+(sh.items||[]).map(function(){return '<div class="pm"></div>'}).join("")+'</div></div>'
     +'<section class="ccred"><div class="ctit"><i></i><h2>credits</h2><i></i></div>'+cr+(p.thanks?'<div class="cdiv"></div><p class="thx">'+p.thanks+'</p>':'')+'</section>'
     +(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px);padding-left:clamp(20px,4vw,64px)" href="#project-'+nx.id+'">next project →</a>':'')+'</div>';
   var r=$("pjc"),vs=r.querySelectorAll(".cv"),gs=r.querySelectorAll(".cgrid .pm");
