@@ -112,6 +112,8 @@ body.case footer{border-top-color:currentColor}body.case #dot{background:#fff}bo
 .cdiv{width:min(36%,280px);border-top:2px solid currentColor;margin:clamp(28px,4vw,56px) auto clamp(20px,3vw,40px)}
 .thx{margin:0;font:800 clamp(14px,1.6vw,24px) var(--hf);text-transform:uppercase}
 @media (max-width:700px){.deco{display:none}.cgrid{grid-template-columns:1fr}}
+.case-p .pm.ar{aspect-ratio:var(--ar);overflow:hidden}.case-p .pm.ar img,.case-p .pm.ar video{height:100%;object-fit:cover}
+.tx .lb{text-align:left;font-weight:800;margin:0}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
@@ -225,10 +227,28 @@ var MEDIA={
 //  text: parágrafos da explicação (aceita HTML) | link: {label:"",url:""} | media: vídeos/imagens da página do projeto
 //  credits: lista de ["Função","Nome"]
 //  tight: true = imagens coladas uma embaixo da outra, sem espaço (bom para projetos de design)
+//  página por blocos (ex.: spotify): blocks:[{img:"a.gif"},{video:"v.mp4"},{text:1},{row:["a.gif","b.gif"]}] (ar = proporção da imagem; text usa "#PT" para rótulo)
 //  página especial (ex.: chikinz): theme:{bg,fg}, deco, aboutTitle, text (use "---" para uma linha), shots:{strip,items}, credits, thanks
 var PROJECTS=[
   {id:"chikinz",cat:"motion",featured:true,title:"chikinz",cover:"chikinz.project.mp4",g:"linear-gradient(135deg,#7a2cc0,#2a0050)",theme:{bg:"#ff1800",fg:"#fff"},deco:"鶏鶏",aboutTitle:["sobre o projeto","about the project"],text:["<b>PT</b> - Este é um projeto autoral criado para desenvolver uma animação 2D divertida para a <b>CHIKINZ</b>, uma marca fictícia de fast food de frango frito. O objetivo foi praticar técnicas de motion design aplicadas ao branding, utilizando elementos visuais chamativos e movimentos dinâmicos para simular um vídeo promocional.","Neste vídeo, explorei composições descontraídas, tipografia marcante e animações simples, mas impactantes, que comunicam a personalidade vibrante e divertida da marca. O estilo flat em 2D foi escolhido para reforçar uma estética limpa, moderna e acessível, ideal para campanhas digitais.","---","<b>ENG</b> - This is a personal project created to develop a fun 2D animation for <b>CHIKINZ</b>, a fictional fried chicken fast food brand. The goal was to practice motion design techniques applied to branding, using catchy visuals and dynamic movements to simulate a promotional video.","In this video, I explored playful compositions, bold typography, and simple yet striking animations that communicate the brand’s lively and fun personality. The chosen 2D flat style helps reinforce a clean, modern, and accessible aesthetic, fitting for digital campaigns."],link:{label:"",url:""},media:["chikinz.project.mp4"],shots:{strip:"chikinz.assets.project.00.gif",items:["chikinz.assets.project.01.gif","chikinz.assets.project.02.gif","chikinz.assets.project.03.gif","chikinz.assets.project.04.gif"]},credits:[["design & composition","walison alves"],["animation","walison alves"]],thanks:"thank you!"},
-  {id:"spotify-ex",cat:"motion",featured:true,title:"spotify exp",cover:"spotify.ex.project.mp4",g:"linear-gradient(135deg,#ff1a00,#4d0500)",text:[],link:{label:"",url:""},media:["spotify.ex.project.mp4"],credits:[]},
+  {id:"spotify-ex",cat:"motion",featured:true,title:"spotify exp",cover:"spotify.ex.project.mp4",g:"linear-gradient(135deg,#ff1a00,#4d0500)",theme:{bg:"#d92bfb",fg:"#fff"},blocks:[
+    {img:"capa.gif",ar:3.2},
+    {video:"spotify.ex.project.mp4"},
+    {img:"sobre o projeto_0.png",ar:5.8182},
+    {text:1},
+    {img:"breakdown_0.png",ar:6.4},
+    {row:["begin_00.gif","2d_03.gif"]},
+    {row:["2d_01.gif","2d_02.gif"]},
+    {img:"2d_00.gif"},
+    {row:["pixel_06.gif","pixel_08.gif"]},
+    {row:["pixel_02.gif","pixel_07.gif"]},
+    {row:["motion_1.GIF","motion_3.gif"]},
+    {img:"motion_2.gif"},
+    {row:["3d_00.gif","3d_02.GIF"]},
+    {row:["3D_05.gif","3d_03.gif"]},
+    {img:"3d_04.gif"},
+    {img:"thanks.gif",ar:3.2}
+  ],text:["#PT","Este é um projeto autoral desenvolvido como estudo de diferentes técnicas de animação, utilizando o Spotify como base para uma peça promocional conceitual. Ao longo do vídeo, combinei motion design, animação frame a frame, pixel art e 3D para criar uma peça única, explorando a transição entre diferentes estilos visuais.<br>O projeto teve como foco experimentar novas técnicas, praticar direção de arte e entender como linguagens visuais distintas podem coexistir dentro de uma mesma narrativa.","---","#ENG","This is a personal project developed as a study of different animation techniques, using Spotify as the basis for a conceptual promotional piece. Throughout the video, I combined motion design, frame-by-frame animation, pixel art, and 3D to create a unique piece, exploring transitions between different visual styles.<br>The project focused on experimenting with new techniques, practicing art direction, and understanding how distinct visual languages can coexist within the same narrative."],link:{label:"",url:""},media:["spotify.ex.project.mp4"],credits:[]},
   {id:"transborde",cat:"motion",featured:true,title:"transborde",cover:"transborde.project.mp4",g:"linear-gradient(135deg,#25449a,#00061f)",text:[],link:{label:"",url:""},media:["transborde.project.mp4"],credits:[]},
   {id:"sunrise",cat:"motion",featured:false,title:"sunrise",cover:"sunrise.mp4",g:"linear-gradient(135deg,#ff6a00,#4d0500)",text:[],link:{label:"",url:""},media:["sunrise.mp4"],credits:[]},
   {id:"gurrenlagan",cat:"frame-by-frame",featured:false,title:"gurren lagan",cover:"gurrenlagan.mp4",g:"linear-gradient(135deg,#25449a,#00061f)",text:[],link:{label:"",url:""},media:["gurrenlagan.mp4"],credits:[]},
@@ -243,7 +263,7 @@ var NAMES={behance:"Behance",instagram:"Instagram",email:"E-mail"};
 document.querySelectorAll(".soc").forEach(function(b){b.innerHTML=Object.keys(ICONS).map(function(k){var u=LINKS[k];if(k==="email"&&u)u="mailto:"+u;return u?'<a href="'+u+'" aria-label="'+NAMES[k]+'" target="_blank" rel="noopener">'+ICONS[k]+'</a>':'<span aria-label="'+NAMES[k]+'">'+ICONS[k]+'</span>'}).join("")});
 
 var $=function(id){return document.getElementById(id)};
-function put(el,f,ctl,alt){var v=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(v?"video":"img");m.src=f;if(v){m.preload="metadata";m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","");m.setAttribute("playsinline","");if(ctl)m.controls=true}else m.alt=alt||"";el.insertBefore(m,el.firstChild)}
+function put(el,f,ctl,alt){var v=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(v?"video":"img");m.src=f;if(v){m.preload="metadata";m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","");m.setAttribute("playsinline","");if(ctl)m.controls=true}else{m.alt=alt||"";if(el.classList.contains("lz"))m.loading="lazy"}el.insertBefore(m,el.firstChild)}
 function by(cat){return PROJECTS.filter(function(p){return p.cat===cat})}
 function cnt(n){return n?n+(n===1?" project":" projects"):"coming soon"}
 function pcard(p){return '<a class="card p" href="#project-'+p.id+'" aria-label="'+p.title+'"'+(p.cover?' data-cover="'+p.cover+'"':'')+(p.g?' style="background:'+p.g+'"':'')+'><span class="cap">'+p.title+'</span></a>'}
@@ -292,8 +312,23 @@ function renderProject(p){
   watch($("pj"));
 }
 
+// Página especial por blocos (na ordem em que você listar em blocks)
+function renderBlocks(p){
+  var same=by(p.cat),nx=same[(same.indexOf(p)+1)%same.length],files=[];
+  function cell(f,ar,v){files.push([f,v]);return '<div class="pm ar lz'+(v?" cv":"")+'" style="--ar:'+ar+'"></div>'}
+  var html=(p.blocks||[]).map(function(b){
+    if(b.video)return cell(b.video,b.ar||1.7778,1);
+    if(b.img)return cell(b.img,b.ar||1.7778,0);
+    if(b.row)return '<div class="cgrid">'+b.row.map(function(f){return cell(f,b.ar||1.7778,0)}).join("")+'</div>';
+    if(b.text)return '<section class="cabout"><div class="tx">'+(p.text||[]).map(function(x){return x==="---"?'<hr>':x.charAt(0)==="#"?'<p class="lb">'+x.slice(1)+'</p>':'<p>'+x+'</p>'}).join("")+'</div></section>';
+    return "";
+  }).join("");
+  $("pjc").innerHTML='<div class="case-p"><a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="sr">'+p.title+'</h1>'+html+(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px);padding-left:clamp(20px,4vw,64px)" href="#project-'+nx.id+'">next project →</a>':'')+'</div>';
+  var els=$("pjc").querySelectorAll(".pm");files.forEach(function(x,i){put(els[i],x[0],x[1],p.title)});
+  watch($("pjc"));
+}
 // Página especial de projeto (tema colorido, seção "about", shots em grade e créditos)
-function renderCase(p){
+function renderCase(p){if(p.blocks)return renderBlocks(p);
   var same=by(p.cat),nx=same[(same.indexOf(p)+1)%same.length],t=p.aboutTitle||["about the project",""],sh=p.shots||{items:[]};
   var vids=(p.media||[]).map(function(){return '<div class="pm cv"></div>'}).join("");
   var tx=(p.text||[]).map(function(x){return x==="---"?'<hr>':'<p>'+x+'</p>'}).join("");
