@@ -112,6 +112,7 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
 .case-p .pm.ar{aspect-ratio:var(--ar);overflow:hidden}.case-p .pm.ar img,.case-p .pm.ar video{height:100%;object-fit:cover}
 .tx .lb{text-align:left;font-weight:800;margin:0}
 .case-p .stk{margin-inline:clamp(20px,4vw,64px);border-radius:22px;overflow:hidden}.case-p .stk .cabout,.case-p .stk .ccred{background:var(--cbg);color:var(--cfg)}
+img,video{-webkit-user-drag:none;user-select:none;-webkit-touch-callout:none}
 #load{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,3vw,44px);background:var(--dark);color:#fff;font:800 clamp(40px,9vw,140px)/.9 var(--hf);text-transform:lowercase;transition:transform .8s cubic-bezier(.7,0,.2,1)}#load.done{transform:translateY(-100%)}
 #curtain{position:fixed;inset:0;z-index:150;background:var(--red);transform:translateY(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);pointer-events:none}#curtain.on{transform:none}#curtain.out{transform:translateY(-100%)}
 #dot{position:fixed;left:0;top:0;z-index:200;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--red);pointer-events:none;display:none;align-items:center;justify-content:center;color:#fff;font:500 14px var(--hf);transition:width .3s,height .3s,margin .3s}
@@ -200,7 +201,7 @@ footer{padding-block:clamp(36px,5vw,70px) 48px;border-top:1.5px solid var(--ink)
     <div><b>walison alves</b><span class="lab">Animator & Designer</span></div>
     <div class="fnav"><a href="#work">work</a><a href="#about">about</a><a href="#contact">contact</a><div class="soc"></div></div>
   </div>
-  <p class="lab copy">● Ideas with character. Stories in motion. © 2026 Walison Alves</p>
+  <p class="lab copy">● animation. design. © 2026 Walison Alves</p>
 </footer>
 
 <script>
@@ -261,7 +262,7 @@ var NAMES={behance:"Behance",instagram:"Instagram",email:"E-mail"};
 document.querySelectorAll(".soc").forEach(function(b){b.innerHTML=Object.keys(ICONS).map(function(k){var u=LINKS[k];if(k==="email"&&u)u="mailto:"+u;return u?'<a href="'+u+'" aria-label="'+NAMES[k]+'" target="_blank" rel="noopener">'+ICONS[k]+'</a>':'<span aria-label="'+NAMES[k]+'">'+ICONS[k]+'</span>'}).join("")});
 
 var $=function(id){return document.getElementById(id)};
-function put(el,f,ctl,alt){var v=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(v?"video":"img");m.src=f;if(v){m.preload="metadata";m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","");m.setAttribute("playsinline","");if(ctl)m.controls=true}else{m.alt=alt||"";if(el.classList.contains("lz"))m.loading="lazy"}el.insertBefore(m,el.firstChild)}
+function put(el,f,ctl,alt){var v=/\.(mp4|webm|mov)$/i.test(f),m=document.createElement(v?"video":"img");m.src=f;m.draggable=false;if(v){m.preload="metadata";m.muted=true;m.loop=true;m.playsInline=true;m.setAttribute("muted","");m.setAttribute("playsinline","");m.setAttribute("controlslist","nodownload noremoteplayback");m.disablePictureInPicture=true;if(ctl)m.controls=true}else{m.alt=alt||"";if(el.classList.contains("lz"))m.loading="lazy"}el.insertBefore(m,el.firstChild)}
 function by(cat){return PROJECTS.filter(function(p){return p.cat===cat})}
 function cnt(n){return n?n+(n===1?" project":" projects"):"coming soon"}
 function pcard(p){return '<a class="card p" href="#project-'+p.id+'" aria-label="'+p.title+'"'+(p.cover?' data-cover="'+p.cover+'"':'')+(p.g?' style="background:'+p.g+'"':'')+'><span class="cap">'+p.title+'</span></a>'}
@@ -365,6 +366,10 @@ function route(){
   var hero=$("hero");hero.classList.remove("play");void hero.offsetWidth;hero.classList.add("play");
 }
 addEventListener("hashchange",route);route();
+
+// Proteção básica: sem botão direito nem arrastar nas imagens, GIFs e vídeos
+document.addEventListener("contextmenu",function(e){if(e.target.closest&&e.target.closest("img,video,.pm,.card,.slide,.art"))e.preventDefault()});
+document.addEventListener("dragstart",function(e){if(e.target.tagName==="IMG"||e.target.tagName==="VIDEO")e.preventDefault()});
 
 // Transição em cortina entre páginas
 var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=$("curtain");
