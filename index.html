@@ -301,12 +301,12 @@ watch(document);
 // Página de cada projeto
 function renderProject(p){
   var same=by(p.cat),nx=same[(same.indexOf(p)+1)%same.length];
-  var tx=p.text&&p.text.length?p.text.map(function(t){return '<p class="lead">'+t+'</p>'}).join(""):'<p class="lab soft">( description coming soon )</p>';
+  var tx=p.text&&p.text.length?p.text.map(function(t){return '<p class="lead">'+t+'</p>'}).join(""):'';
   var lk=p.link&&p.link.url?'<a class="pill" href="'+p.link.url+'" target="_blank" rel="noopener">'+(p.link.label||"read more")+' ↗</a>':"";
   var ph='<div class="card ph"><span class="lab">( media coming soon )</span></div>';
   var md=p.media&&p.media.length?p.media.map(function(){return '<div class="pm"></div>'}).join(""):ph+ph;
-  var cr=p.credits&&p.credits.length?p.credits.map(function(r){return '<p class="cr"><b>'+r[0]+':</b> '+r[1]+'</p>'}).join(""):'<p class="lab soft">—</p>';
-  $("pj").innerHTML='<a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="pt">'+p.title+'</h1><div class="ptx rv">'+tx+lk+'</div><div class="pms'+(p.tight?" tight":"")+'">'+md+'</div><div class="lab" style="margin-top:56px">( credits )</div><div class="crs">'+cr+'</div>'+(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px)" href="#project-'+nx.id+'">next project →</a>':'');
+  var cr=p.credits&&p.credits.length?p.credits.map(function(r){return '<p class="cr"><b>'+r[0]+':</b> '+r[1]+'</p>'}).join(""):'';
+  $("pj").innerHTML='<a class="lab back" href="#'+p.cat+'">← '+CATS[p.cat].t+'</a><h1 class="pt">'+p.title+'</h1>'+((tx||lk)?'<div class="ptx rv">'+tx+lk+'</div>':'')+'<div class="pms'+(p.tight?" tight":"")+'">'+md+'</div>'+(cr?'<div class="lab" style="margin-top:56px">( credits )</div><div class="crs">'+cr+'</div>':'')+(same.length>1?'<a class="cta" style="font-size:clamp(32px,6vw,90px)" href="#project-'+nx.id+'">next project →</a>':'');
   var ms=$("pj").querySelectorAll(".pm");(p.media||[]).forEach(function(f,i){put(ms[i],f,true,p.title)});
   watch($("pj"));
 }
